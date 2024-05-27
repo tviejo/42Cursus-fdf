@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/26 22:05:56 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/27 23:32:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_2dcoor	convertortho(int x, int y, int z, int angle, int zoom)
 {
     t_2dcoor point2D;
 
-    double rad = angle * (M_PI / 180.0);
 /*
     point2D.x = (x * zoom) * cos(rad) - (z * zoom) * sin(rad);
     point2D.y = y * zoom;
@@ -87,15 +86,37 @@ t_2dcoor	convertortho(int x, int y, int z, int angle, int zoom)
 	printf("%d", z);
 	point2D.x = (x * zoom) * cos(M_PI / 6);
 	point2D.y = (x * zoom) * sin(M_PI / 6) + (y * zoom) * sin(M_PI / 6) - (z * zoom);
-*/
 
+	point2D.x = ((x - y) * 5) * zoom;
+        point2D.y = (((x + y) * 3) - z) * zoom;
+
+	int xtemp = x;
+	point2D.x = ( xtemp * cos(rad) - y * sin(rad) ) * zoom;
+        point2D.y = ( xtemp * sin(rad) + y * cos(rad) ) * zoom;
 	point2D.x = ((sqrt(3) / 2) * x - (sqrt(3) / 2) * z) * zoom;
 	point2D.y = (0.5 * x + y + 0.5 * z) * zoom;
-
-	
-
+*/
+	int	xtemp = x;
+	int	ytemp = y;
+	point2D.x = -( (xtemp - ytemp) * cos(1/sqrt(2)) ) * zoom;
+        point2D.y = -z * 2 + (( (xtemp + ytemp) * sin(1/sqrt(2)) ) * zoom);
+	point2D = ft_rotax(point2D, angle);
 	return point2D;
 }
+
+t_2dcoor	ft_rotax(t_2dcoor point2D, int angle)
+{
+	double rad;
+	int	xtemp;
+
+	xtemp = point2D.x;
+	rad = angle * (M_PI / 180.0);
+	point2D.x = ( xtemp * cos(rad) - point2D.y * sin(rad) );
+        point2D.y = ( xtemp * sin(rad) + point2D.y * cos(rad) );
+
+	return (point2D);
+}
+	
 
 int	render(t_data *data)
 {
@@ -104,8 +125,8 @@ int	render(t_data *data)
 	t_map		map;
 	int	i;
 	int	j;
-	int	zoom = 50;
-	int	offset = 200;
+	int	zoom = 20;
+	int	offset = 300;
 	int	angle = 0;
 
 	render_background(&data->img, WHITE_PIXEL);
@@ -118,7 +139,7 @@ int	render(t_data *data)
 		while (j < map.y)
 		{
 			begin = convertortho(i, j, atoi(map.map[i][j]), angle, zoom);
-			end = convertortho(i + 1, j, atoi(map.map[i][j]), angle, zoom);
+			end = convertortho(i + 1, j, atoi(map.map[i + 1][j]), angle, zoom);
 			render_line(&data->img, (t_line){ offset + begin.x, offset + begin.y, offset + end.x, offset + end.y, RED_PIXEL});
 			j++;
 		}
@@ -131,13 +152,12 @@ int	render(t_data *data)
                 while (i < map.x)
                 {
                         begin = convertortho(i, j, atoi(map.map[i][j]), angle, zoom);
-                        end = convertortho(i, j + 1, atoi(map.map[i][j]), angle, zoom);
+                        end = convertortho(i, j + 1, atoi(map.map[i][j + 1]), angle, zoom);
                         render_line(&data->img, (t_line){ offset + begin.x, offset + begin.y, offset + end.x, offset + end.y, RED_PIXEL});
                         i++;
                 }
         j++;
         }
-
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 
 	return (0);

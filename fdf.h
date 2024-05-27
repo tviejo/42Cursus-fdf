@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/26 18:20:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/27 23:30:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef	struct	s_map
 	int	y;
 }	t_map;
 
+t_2dcoor	ft_rotax(t_2dcoor point2D, int angle);
 char	*get_next_line(int fd);
 int		ft_strlen(char *str);
 char	*ft_strncpy(char *dest, char *scr, int n);
