@@ -6,14 +6,14 @@
 #    By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 18:53:05 by tviejo            #+#    #+#              #
-#    Updated: 2024/05/28 13:46:18 by tviejo           ###   ########.fr        #
+#    Updated: 2024/05/28 22:40:32 by tviejo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	fdf
     
 SRC		=	ft_atoi.c ft_parse.c  ft_split.c ft_utils.c \
-			get_next_line.c get_next_line_utils.c \
+			get_next_line.c get_next_line_utils.c color.c \
 			coorconvert.c render.c key.c init_view.c main.c	
 
 OBJS		=	${SRC:.c=.o}

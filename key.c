@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 15:59:29 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/28 23:33:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int     handle_keypress(int keysym, t_data *data)
 {
+	int	color;
+
+	color = 0;
         if (keysym == XK_Escape)
         {	
 		mlx_loop_end(data->mlx_ptr);
@@ -46,6 +49,10 @@ int     handle_keypress(int keysym, t_data *data)
                 data->rotaz += 1;
         if (keysym == 118)
                 data->rotaz -= 1;
+	if (keysym == 116)
+                data->colorb = ft_color_change(data->colorb);
+	if (keysym == 121)
+                data->colorl = ft_color_change(data->colorl);
 	ft_putchar(keysym);
         return (0);
 }

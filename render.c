@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 20:52:00 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/28 23:34:38 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ void    img_pix_put(t_img *img, int x, int y, int color)
         }
 }
 
+bool    ft_pixel_is_printable(int pixelX , int pixelY)
+{
+        if (pixelX < 0 || pixelY < 0)
+                return (false);
+        if (pixelX > WINDOW_WIDTH)
+                return (false);
+        if (pixelY > WINDOW_WIDTH)
+                return (false);
+        return (true);
+}
+
 int render_line(t_img *img, t_line line)
 {
         double deltaX = line.x2 - line.x1;
@@ -40,7 +51,8 @@ int render_line(t_img *img, t_line line)
         double pixelY = line.y1;
         while (pixels)
         {
-                img_pix_put(img, pixelX, pixelY, line.color);
+		if (ft_pixel_is_printable(pixelX, pixelY) == true)
+			img_pix_put(img, pixelX, pixelY, line.color);
                 pixelX += deltaX;
                 pixelY += deltaY;
                 --pixels;
@@ -74,13 +86,13 @@ void	ft_create_line(int i, int j, t_map map, t_data *data, int mode)
 	{
 		begin = convertortho(i, j, atoi(map.map[i][j]), data);
 		end = convertortho(i + 1, j, atoi(map.map[i + 1][j]), data);
-		render_line(&data->img, (t_line){ begin.x, begin.y, end.x, end.y, RED_PIXEL});
+		render_line(&data->img, (t_line){ begin.x, begin.y, end.x, end.y, data->colorl});
 	}
 	else
 	{
 		begin = convertortho(i, j, atoi(map.map[i][j]), data);
 		end = convertortho(i, j + 1, atoi(map.map[i][j + 1]), data);
-		render_line(&data->img, (t_line){begin.x, begin.y, end.x, end.y, RED_PIXEL});	
+		render_line(&data->img, (t_line){begin.x, begin.y, end.x, end.y, data->colorl});	
 	}
 }
 
@@ -90,7 +102,7 @@ int     render(t_data *data)
         int     i;
         int     j;
 	
-        render_background(&data->img, WHITE_PIXEL);
+        render_background(&data->img, data->colorb);
         map = create_map(data->arg);
         i = 0;
         while (i < map.x - 1)

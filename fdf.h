@@ -6,13 +6,14 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 15:35:04 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/28 23:33:48 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+#include <stdbool.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -33,8 +34,10 @@
 
 #define MLX_ERROR 1
 
+#define BLACK_PIXEL 0x000000
 #define RED_PIXEL 0xFF0000
 #define GREEN_PIXEL 0xFF00
+#define BLUE_PIXEL 0xFF
 #define WHITE_PIXEL 0xFFFFFF
 
 # ifndef BUFFER_SIZE
@@ -54,6 +57,7 @@ typedef struct s_2dcoor
 {
         int     x;
         int     y;
+	int	originalz;
 }       t_2dcoor;
 
 typedef struct s_data
@@ -71,6 +75,8 @@ typedef struct s_data
 	int	lenx;
 	int	leny;
 	char	*arg;
+	int	colorb;
+	int	colorl;
 }       t_data;
 
 typedef struct s_line
@@ -79,7 +85,7 @@ typedef struct s_line
         int     y1;
         int     x2;
         int     y2;
-        int color;
+        int	color;
 }       t_line;
 
 typedef	struct	s_map
@@ -89,6 +95,7 @@ typedef	struct	s_map
 	int	y;
 }	t_map;
 
+int	ft_color_change(int color);
 void    ft_init_view(t_data *data, t_map map);
 void	ft_putchar(char c);
 void    ft_putnbr(int nb);
