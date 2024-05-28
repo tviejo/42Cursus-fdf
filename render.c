@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 13:54:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/28 14:51:25 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int     render(t_data *data)
         int     j;
 	
         render_background(&data->img, WHITE_PIXEL);
-        map = create_map("test_simple");
+        map = create_map(data->arg);
 
         i = 0;
         while (i < map.x - 1)
@@ -83,9 +83,9 @@ int     render(t_data *data)
                 j = 0;
                 while (j < map.y)
                 {
-                        begin = convertortho(i, j, atoi(map.map[i][j]), data->rotax, data->zoom);
-                        end = convertortho(i + 1, j, atoi(map.map[i + 1][j]), data->rotax, data->zoom);
-                       render_line(&data->img, (t_line){ data->transx + begin.x, data->transx + begin.y, data->transx + end.x, data->transx + end.y, RED_PIXEL});
+                        begin = convertortho(i, j, atoi(map.map[i][j]), data);
+                        end = convertortho(i + 1, j, atoi(map.map[i + 1][j]), data);
+                       render_line(&data->img, (t_line){ begin.x, begin.y, end.x, end.y, RED_PIXEL});
                         j++;
                 }
         i++;
@@ -96,9 +96,9 @@ int     render(t_data *data)
                 i = 0;
                 while (i < map.x)
                 {
-                        begin = convertortho(i, j, atoi(map.map[i][j]), data->rotax, data->zoom);
-                        end = convertortho(i, j + 1, atoi(map.map[i][j + 1]), data->rotax, data->zoom);
-                        render_line(&data->img, (t_line){ data->transx + begin.x, data->transx + begin.y, data->transx + end.x, data->transx + end.y, RED_PIXEL});
+                        begin = convertortho(i, j, atoi(map.map[i][j]), data);
+                        end = convertortho(i, j + 1, atoi(map.map[i][j + 1]), data);
+                        render_line(&data->img, (t_line){begin.x, begin.y, end.x, end.y, RED_PIXEL});
                         i++;
                 }
         j++;

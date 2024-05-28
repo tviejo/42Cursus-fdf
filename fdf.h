@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 13:44:55 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:35:04 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct s_data
         int     rotaz;
         int     transx;
         int     transy;
+	int	lenx;
+	int	leny;
+	char	*arg;
 }       t_data;
 
 typedef struct s_line
@@ -86,7 +89,7 @@ typedef	struct	s_map
 	int	y;
 }	t_map;
 
-void    ft_init_view(t_data *data);
+void    ft_init_view(t_data *data, t_map map);
 void	ft_putchar(char c);
 void    ft_putnbr(int nb);
 int	ft_strlen(char  *str);
@@ -96,8 +99,8 @@ int render_line(t_img *img, t_line line);
 void    render_background(t_img *img, int color);
 int     handle_keypress(int keysym, t_data *data);
 int     render(t_data *data);
-t_2dcoor        convertortho(int x, int y, int z, int angle, int zoom);
-t_2dcoor        ft_rotax(t_2dcoor point2D, int angle);
+t_2dcoor        convertortho(int x, int y, int z, t_data *data);
+t_2dcoor        ft_rota(t_2dcoor point2D, int angle);
 char	*get_next_line(int fd);
 char	*ft_strncpy(char *dest, char *scr, int n);
 void	ft_remove_returned(char *buffer);

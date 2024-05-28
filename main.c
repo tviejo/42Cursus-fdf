@@ -6,16 +6,21 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 13:46:44 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:10:04 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	data;
-	ft_init_view(&data);
+	t_map	map;
+
+	(void)argc;
+	data.arg = argv[1];
+	map = create_map(data.arg);
+	ft_init_view(&data, map);
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);
