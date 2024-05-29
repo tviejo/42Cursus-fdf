@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 14:54:57 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:53:34 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,31 @@
 char	**ft_read_line(int fd)
 {
 	char	*line;
+	char	**point;
 
 	line = get_next_line(fd);
-	return (ft_split( line, ' '));
+	point = ft_split( line, ' ');
+	free(line);
+	return (point);
 }
 
 int	ft_size_tab(char *argv)
 {
 	int	fd;
 	int	i;
+	char	*line;
 
 	fd = open(argv, O_RDONLY);
 	i = 1;
-	while (get_next_line(fd) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd);
 		i++;
+	}
+	if (line != NULL)
+		free(line);
 	close(fd);
 	return (i);
 }

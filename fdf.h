@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 23:33:48 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:59:55 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,19 @@ typedef struct s_2dcoor
 	int	originalz;
 }       t_2dcoor;
 
+typedef struct  s_map
+{
+        char    ***map;
+        int     x;
+        int     y;
+}       t_map;
+
 typedef struct s_data
 {
         void    *mlx_ptr;
         void    *win_ptr;
         t_img   img;
+	t_map	map;
         int             cur_img;
 	int     zoom;
         int     rotax;
@@ -88,13 +96,7 @@ typedef struct s_line
         int	color;
 }       t_line;
 
-typedef	struct	s_map
-{
-	char	***map;
-	int	x;
-	int	y;
-}	t_map;
-
+int     ft_free_map(t_map *map);
 int	ft_color_change(int color);
 void    ft_init_view(t_data *data, t_map map);
 void	ft_putchar(char c);

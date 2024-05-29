@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 23:41:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:34:46 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	data.arg = argv[1];
 	map = create_map(data.arg);
+	data.map = map;
 	ft_init_view(&data, map);
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
@@ -36,12 +37,12 @@ int	main(int argc, char **argv)
 
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-
 	mlx_loop(data.mlx_ptr);
 
-	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
+//	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
+//	mlx_destroy_display(data.mlx_ptr);
+//	free(data.mlx_ptr);
+//	ft_free_map(&map);
 }
 /*
 int     main(int argc, char **argv)

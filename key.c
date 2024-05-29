@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 23:33:22 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:41:57 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int     handle_keypress(int keysym, t_data *data)
 {
-	int	color;
-
-	color = 0;
         if (keysym == XK_Escape)
-        {	
-		mlx_loop_end(data->mlx_ptr);
-		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);	
-                mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+        {
+		ft_free_map(&data->map);
+		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		mlx_destroy_display(data->mlx_ptr);
+        	data->win_ptr = NULL;
 		free(data->mlx_ptr);
+		exit(0);
         }
 	if (keysym == 122)
 		data->zoom += 1;

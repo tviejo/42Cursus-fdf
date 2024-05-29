@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 23:34:38 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:58:09 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int     render(t_data *data)
         int     j;
 	
         render_background(&data->img, data->colorb);
-        map = create_map(data->arg);
+        map = data->map;
         i = 0;
         while (i < map.x - 1)
         {
