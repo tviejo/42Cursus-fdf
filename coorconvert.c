@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:02:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 21:49:39 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 12:56:52 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ t_2dcoor        convertortho(int x, int y, int z, t_data *data)
 
 	xtemp = x;
 	ytemp = y;
-	point2D.x = -((xtemp - ytemp) * cos(1/sqrt(2))) * data->zoom;
-	point2D.y = (-z / 8 + ((xtemp + ytemp) * sin(1/sqrt(2)))) * data->zoom;
+	point2D.x = -((xtemp - ytemp) * 0.76024) * data->zoom;
+	point2D.y = (-z / 8 + ((xtemp + ytemp) * 0.64964)) * data->zoom;
 	point2D.originalz = z;
 	point2D = ft_trans(point2D, data);
 	point2D = ft_rotax(point2D, data);
-//	point2D = ft_rota(point2D, data->rotay);
-//	point2D = ft_rota(point2D, data->rotaz);
 	return (point2D);
 }
