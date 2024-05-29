@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 21:59:55 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 22:32:33 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,17 @@ typedef struct s_img
         int             endian;
 }       t_img;
 
+typedef struct s_3dcoor
+{
+        int     x;
+        int     y;
+        int     z;
+}       t_3dcoor;
+
 typedef struct s_2dcoor
 {
         int     x;
         int     y;
-	int	originalz;
 }       t_2dcoor;
 
 typedef struct  s_map
@@ -65,6 +71,7 @@ typedef struct  s_map
         char    ***map;
         int     x;
         int     y;
+	int	z;
 }       t_map;
 
 typedef struct s_data
@@ -82,6 +89,7 @@ typedef struct s_data
         int     transy;
 	int	lenx;
 	int	leny;
+	int	lenz;
 	char	*arg;
 	int	colorb;
 	int	colorl;

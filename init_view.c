@@ -6,7 +6,7 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 23:36:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 22:50:45 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_init_view(t_data *data, t_map map)
 	data->rotaz = 0;
 	data->lenx = map.x;
 	data->leny = map.y;
+	data->lenz = map.z;
 	data->colorb = BLACK_PIXEL;
 	data->colorl = WHITE_PIXEL;
 }

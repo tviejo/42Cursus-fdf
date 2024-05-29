@@ -6,11 +6,37 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 21:53:34 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/29 22:38:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int	ft_lenz(t_map *map)
+{
+        int     i;
+        int     j;
+	int	min;
+	int	max;
+
+	min = 0;
+	max = 0;
+        i = 0;
+        while (map->map[i] != NULL)
+        {
+                j = 0;
+                while (map->map[i][j] != NULL)
+                {
+			if (atoi(map->map[i][j]) > max)
+				max = atoi(map->map[i][j]);
+			else if (atoi(map->map[i][j]) < min)
+				min = atoi(map->map[i][j]);
+                        j++;
+                }
+               i++;
+        }
+	return (max - min);	
+}
 
 char	**ft_read_line(int fd)
 {
@@ -79,6 +105,7 @@ t_map	create_map(char *argv)
 	map.map[i] = NULL;
 	map.x = i;
 	map.y = leny;
+	map.z = ft_lenz(&map);
 	close(fd);
 	return (map);
 }
