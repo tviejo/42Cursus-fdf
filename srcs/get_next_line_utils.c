@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 10:56:55 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 13:43:20 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*ft_strncpy(char *dest, char *scr, int n)
 
 void	ft_remove_returned(char *buffer)
 {
-	int		i;
-	int		n;
+	int	i;
+	int	n;
 
 	n = get_first_line(buffer);
 	i = n;

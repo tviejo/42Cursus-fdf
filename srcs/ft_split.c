@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:14:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 10:56:23 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 13:43:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,32 +113,32 @@ int	main(void)
 //	printf("%d" , outputi);
 //	output = ft_len_words(str, charset);
 //      printf("%d" , output);
-      
+
 	output = ft_split("lorem ipsum dolor sit amet, consectetur ", ' ');
 	i = 0;
 	while (output != NULL && output[i] != NULL)
 	{
-        	printf("1: %s\n" , output[i]);
+			printf("1: %s\n" , output[i]);
 		i++;
 	}
 	ft_free(output);
 	printf("\n");
 	output = ft_split("  qwerty  azerty  ", ' ');
-        i = 0;
-        while (output[i] != NULL)
-        {
-                printf("2: %s\n" , output[i]);
-                i++;
-        }
+		i = 0;
+		while (output[i] != NULL)
+		{
+				printf("2: %s\n" , output[i]);
+				i++;
+		}
 	ft_free(output);
-        printf("\n");
+		printf("\n");
 	output = ft_split(str, ' ');
-        i = 0;
-        while (output[i] != NULL)
-        {
-                printf("3: %s\n" , output[i]);
-                i++;
-        }
+		i = 0;
+		while (output[i] != NULL)
+		{
+				printf("3: %s\n" , output[i]);
+				i++;
+		}
 	ft_free(output);
 	printf("\n");
 //        output = ft_split(NULL, 'e');

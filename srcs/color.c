@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:21:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 10:55:40 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 13:42:12 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	setRed(int color)
 {
-    return (color + 65536);
+	return (color + 65536);
 }
 
 int	setGreen(int color)
 {
-    return (color + 256);
+	return (color + 256);
 }
 
 int	setBlue(int color)
 {
-    return (color + 1);
+	return (color + 1);
 }
 
 int	ft_multiple_color_change(int color, int n)
@@ -44,7 +44,7 @@ int	ft_color_change(int color)
 {
 	if (color < 16711680)
 		color = setRed(color);
-	else if (color - 16711680 < 65280 )
+	else if (color - 16711680 < 65280)
 		color = setGreen(color);
 	else if (color - 16711680 - 65280 < 255)
 		color = setBlue(color);

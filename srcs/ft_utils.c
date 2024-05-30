@@ -6,13 +6,13 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:34:30 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 10:56:32 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 13:43:17 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	ft_putchar(char	c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
@@ -40,7 +40,7 @@ void	ft_putnbr(int nb)
 	}
 }
 
-void	ft_putstr(char	*str)
+void	ft_putstr(char *str)
 {
 	if (str != NULL)
 		write(1, &str, ft_strlen(str));
@@ -60,22 +60,23 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	while (counter < size - 1 && src[counter] != '\0')
 	{
 		dest[counter] = src[counter];
-		counter ++;
+		counter++;
 	}
 	dest[counter] = '\0';
 	return (len_src);
 }
 /*
-#include <string.h>
 #include <stdio.h>
-int main(void)
-{
-        int     result;
-        char    dest[] = "ABCD";
-        char    src[] = "EFGH";
+#include <string.h>
 
-        result = ft_strlcpy(dest, src, 0);
-        printf("%d", result);
+int	main(void)
+{
+		int     result;
+		char    dest[] = "ABCD";
+		char    src[] = "EFGH";
+
+		result = ft_strlcpy(dest, src, 0);
+		printf("%d", result);
 	printf("\n%s", dest);
 }
 */
