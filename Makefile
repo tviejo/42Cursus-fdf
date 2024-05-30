@@ -6,7 +6,7 @@ SRC_DIR		=	srcs/
 OBJ_DIR         =       objs/
  
 SRCS		=	ft_atoi.c ft_parse.c  ft_split.c ft_utils.c close.c\
-			get_next_line.c get_next_line_utils.c color.c \
+			get_next_line.c get_next_line_utils.c color.c parse_color.c\
 			coorconvert.c render.c key.c init_view.c main.c	
 
 vpath %.c $(SRC_DIR)

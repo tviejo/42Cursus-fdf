@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:02:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:42:29 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 22:09:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_3dcoor	ft_rotay(t_3dcoor point3D, t_data *data)
 	return (point3D);
 }
 
-t_2dcoor	convertortho(int x, int y, int z, t_data *data)
+t_2dcoor	convertortho(int x, int y, int z, t_data *data, int color)
 {
 	t_2dcoor	point2D;
 	t_3dcoor	point3D;
@@ -91,5 +91,6 @@ t_2dcoor	convertortho(int x, int y, int z, t_data *data)
 	point2D.x = -((xtemp - ytemp) * 0.76024);
 	point2D.y = (-point3D.z / 10 + ((xtemp + ytemp) * 0.64964));
 	point2D = ft_trans(point2D, data);
+	point2D.color = color;
 	return (point2D);
 }

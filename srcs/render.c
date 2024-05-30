@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 23:13:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,20 @@ int	render_line(t_img *img, t_line line)
 	int		pixels;
 	double	pixelX;
 	double	pixelY;
+//	int	color;
 
-	deltaX = line.x2 - line.x1;
-	deltaY = line.y2 - line.y1;
+	deltaX = line.end.x - line.begin.x;
+	deltaY = line.end.y - line.begin.y;
 	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
 	deltaX /= pixels;
 	deltaY /= pixels;
-	pixelX = line.x1;
-	pixelY = line.y1;
+	pixelX = line.begin.x;
+	pixelY = line.begin.y;
+//	color = (line.end.color - line.begin.color) / pixels;
 	while (pixels)
 	{
 		if (ft_pixel_is_printable(pixelX, pixelY) == true)
-			img_pix_put(img, pixelX, pixelY, line.color);
+			img_pix_put(img, pixelX, pixelY, line.begin.color);
 		pixelX += deltaX;
 		pixelY += deltaY;
 		--pixels;
@@ -87,20 +89,28 @@ void	ft_create_line(int i, int j, t_map map, t_data *data, int mode)
 {
 	t_2dcoor	end;
 	t_2dcoor	begin;
+	int		z;
+	int		color;
 
 	if (mode == 1)
 	{
-		begin = convertortho(i, j, atoi(map.map[i][j]), data);
-		end = convertortho(i + 1, j, atoi(map.map[i + 1][j]), data);
-		render_line(&data->img, (t_line){begin.x, begin.y, end.x, end.y,
-			data->colorl});
+		z = atoi(map.map[i][j]);
+		color = ft_parse_color(*data, map.map[i][j]);
+		begin = convertortho(i, j, z, data, color);
+		z = atoi(map.map[i + 1][j]);
+                color = ft_parse_color(*data, map.map[i + 1][j]);
+		end = convertortho(i + 1, j, z, data, color);
+		render_line(&data->img, (t_line){begin, end, data->colorl});
 	}
 	else
 	{
-		begin = convertortho(i, j, atoi(map.map[i][j]), data);
-		end = convertortho(i, j + 1, atoi(map.map[i][j + 1]), data);
-		render_line(&data->img, (t_line){begin.x, begin.y, end.x, end.y,
-			data->colorl});
+		z = atoi(map.map[i][j]);
+                color = ft_parse_color(*data, map.map[i][j]);
+		begin = convertortho(i, j, z, data, color);
+		z = atoi(map.map[i][j + 1]);
+                color = ft_parse_color(*data, map.map[i][j + 1]);
+		end = convertortho(i, j + 1, z, data, color);
+		render_line(&data->img, (t_line){begin, end, data->colorl});
 	}
 }
 
