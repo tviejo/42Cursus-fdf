@@ -6,11 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:07:47 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/24 17:27:02 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:54:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	ft_atoi(const char *str)
 {

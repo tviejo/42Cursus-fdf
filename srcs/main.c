@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 21:34:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:57:40 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	main(int argc, char **argv)
 {

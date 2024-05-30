@@ -6,11 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:49 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/24 11:46:30 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:56:46 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 char	*ft_realloc(char *ptr, char *buffer, int n)
 {

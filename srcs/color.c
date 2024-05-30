@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:21:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 23:39:52 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:55:40 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	setRed(int color)
 {

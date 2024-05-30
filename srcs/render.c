@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 20:58:09 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:57:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 void    img_pix_put(t_img *img, int x, int y, int color)
 {

@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 22:38:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:56:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	ft_lenz(t_map *map)
 {

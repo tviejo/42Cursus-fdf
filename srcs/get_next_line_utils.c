@@ -6,11 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/24 11:47:06 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:56:55 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	ft_strlen(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:02:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 22:46:47 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:55:52 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 t_2dcoor        ft_trans(t_2dcoor point2D, t_data *data)
 {

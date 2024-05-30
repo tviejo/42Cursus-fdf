@@ -6,11 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:34:30 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/28 11:09:48 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:56:32 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 void	ft_putchar(char	c)
 {

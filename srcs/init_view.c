@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 22:50:45 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:57:17 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 static int	ft_zoom(t_map *map)
 {

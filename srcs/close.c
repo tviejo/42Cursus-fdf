@@ -6,11 +6,11 @@
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/29 21:57:15 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/30 10:55:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	ft_free_map(t_map *map)
 {
