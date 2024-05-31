@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:29 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 11:41:42 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	handle_keypress(int keysym, t_data *data)
 	if (keysym == 118)
 		data->rotaz -= 1;
 	if (keysym == 116)
-		data->colorb = ft_color_change(data->colorb);
+		data->colorb = ft_multiple_color_change(data->colorb, 10);
 	if (keysym == 121)
-		data->colorl = ft_color_change(data->colorl);
+		data->colorl = ft_multiple_color_change(data->colorl, 10);
 	return (0);
 }

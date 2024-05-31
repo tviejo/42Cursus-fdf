@@ -41,5 +41,5 @@ int	ft_parse_color(t_data data, char *str)
 		cpt++;
 	if (str[cpt] != '\0')
 		return (data.colorl + hexStringToInt(str + 2));
-	return (ft_multiple_color_change(data.colorl, atoi(str) * 10000));
+	return (ft_multiple_color_change(data.colorl, atoi(str) * 10));
 }

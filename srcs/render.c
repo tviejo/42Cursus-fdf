@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 23:13:30 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 12:02:52 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	render_line(t_img *img, t_line line)
 	int		pixels;
 	double	pixelX;
 	double	pixelY;
-//	int	color;
+	float	color_change;
+	float	color_change2;
 
 	deltaX = line.end.x - line.begin.x;
 	deltaY = line.end.y - line.begin.y;
@@ -56,11 +57,17 @@ int	render_line(t_img *img, t_line line)
 	deltaY /= pixels;
 	pixelX = line.begin.x;
 	pixelY = line.begin.y;
-//	color = (line.end.color - line.begin.color) / pixels;
+	if (pixels > 0)
+	{
+		color_change = (ft_nb_color_a_to_b(line.end.color, line.begin.color)) / pixels;
+		color_change2 = (ft_nb_color_a_to_b(line.begin.color, line.end.color)) / pixels;
+		if (color_change2 < color_change)
+			color_change = color_change2;
+	}
 	while (pixels)
 	{
 		if (ft_pixel_is_printable(pixelX, pixelY) == true)
-			img_pix_put(img, pixelX, pixelY, line.begin.color);
+			img_pix_put(img, pixelX, pixelY, ft_multiple_color_change(line.begin.color, pixels * color_change));
 		pixelX += deltaX;
 		pixelY += deltaY;
 		--pixels;
@@ -120,6 +127,7 @@ int	render(t_data *data)
 	int		i;
 	int		j;
 
+	data->colorl = ft_multiple_color_change(data->colorl, 1);
 	render_background(&data->img, data->colorb);
 	map = data->map;
 	i = 0;

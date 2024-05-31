@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 22:59:38 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 11:33:09 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_line
 	int		color;
 }			t_line;
 
+int     ft_nb_color_a_to_b(int  colorbegin, int colorend);
 int     ft_multiple_color_change(int color, int n);
 int     ft_parse_color(t_data data, char *str);
 int			ft_free_map(t_map *map);
