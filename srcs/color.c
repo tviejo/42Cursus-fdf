@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:21:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 11:36:34 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 20:15:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,30 @@
 int	ft_color_to_rgb(int r, int g, int b)
 {
 	int	rgb;
+
 	rgb = r;
 	rgb <<= 8;
 	rgb |= g;
 	rgb <<= 8;
 	rgb |= b;
-	return rgb;
+	return (rgb);
 }
 
 u_int8_t	getred(int rgb)
 {
-    return rgb >> 16;
+	return (rgb >> 16);
 }
 u_int8_t	getgreen(int rgb)
 {
-    return rgb >> 8;
+	return (rgb >> 8);
 }
 
 u_int8_t	getblue(int rgb)
 {
-    return rgb;
+	return (rgb);
 }
 
-int	ft_nb_color_a_to_b(int	colorbegin, int colorend)
+int	ft_nb_color_a_to_b(int colorbegin, int colorend)
 {
 	int	i;
 
@@ -52,14 +53,17 @@ int	ft_nb_color_a_to_b(int	colorbegin, int colorend)
 	return (i);
 }
 
-int	ft_multiple_color_change(int color, int n)
+int	ft_multiple_color_change(int color, int n, int mode)
 {
 	int	i;
 
 	i = 0;
 	while (i < n)
 	{
-		color = ft_color_change(color);
+		if (mode == 1)
+			color = ft_color_change(color);
+		else
+			color = ft_color_rchange(color);
 		i++;
 	}
 	return (color);
@@ -74,12 +78,11 @@ int	ft_color_change(int color)
 	r = getred(color);
 	g = getgreen(color);
 	b = getblue(color);
-
 	if (r < 255 && g == 0 && b == 0)
 		r += 1;
 	else if (g < 255 && r > 0 && b == 0)
 	{
-		r -= 1; 
+		r -= 1;
 		g += 1;
 	}
 	else if (b < 255 && g > 0 && r == 0)
@@ -96,7 +99,36 @@ int	ft_color_change(int color)
 	return (ft_color_to_rgb(r, g, b));
 }
 
-		
+int	ft_color_rchange(int color)
+{
+	u_int8_t	r;
+	u_int8_t	g;
+	u_int8_t	b;
+
+	r = getred(color);
+	g = getgreen(color);
+	b = getblue(color);
+	if (b < 255 && g == 0 && r == 0)
+		b += 1;
+	else if (g < 255 && b > 0 && r == 0)
+	{
+		b -= 1;
+		g += 1;
+	}
+	else if (r < 255 && g > 0 && b == 0)
+	{
+		g -= 1;
+		r += 1;
+	}
+	else if (r > 0)
+	{
+		r -= 1;
+	}
+	else
+		return (BLACK_PIXEL);
+	return (ft_color_to_rgb(r, g, b));
+}
+
 /*
 	if (color < 16711680)
 		color = setRed(color);

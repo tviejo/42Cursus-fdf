@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 11:41:42 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 20:16:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,33 @@ int	handle_keypress(int keysym, t_data *data)
 	if (keysym == 118)
 		data->rotaz -= 1;
 	if (keysym == 116)
-		data->colorb = ft_multiple_color_change(data->colorb, 10);
+		data->colorb = ft_multiple_color_change(data->colorb, 10, 2);
 	if (keysym == 121)
-		data->colorl = ft_multiple_color_change(data->colorl, 10);
+		data->colorl = ft_multiple_color_change(data->colorl, 10, 1);
+	if (keysym == 117)
+		if (data->gradientspeed < 50)
+			data->gradientspeed += 1;
+	if (keysym == 105)
+		if (data->gradientspeed > 0)
+			data->gradientspeed -= 1;
+	if (keysym == 107)
+		if (data->gradientspeed < 50)
+			data->gradientsize += 1;
+	if (keysym == 108)
+		if (data->gradientspeed > 0)
+			data->gradientsize -= 1;
+	if (keysym == 112)
+	{
+		if (data->partymode == 1)
+		{
+			data->partymode = 0;
+			data->gradientspeed = 1;
+		}
+		else
+		{
+			data->partymode = 1;
+			data->gradientspeed = 20;
+		}
+	}
 	return (0);
 }

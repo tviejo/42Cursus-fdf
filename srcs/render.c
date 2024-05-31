@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 12:02:52 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 20:16:34 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	char	*pixel;
 	int		i;
 
-	i = img->bpp - 8;
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
+	if (x < WINDOW_WIDTH && y < WINDOW_HEIGHT)
 	{
-		if (img->endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-		i -= 8;
+		i = img->bpp - 8;
+		pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+		while (i >= 0)
+		{
+			if (img->endian != 0)
+				*pixel++ = (color >> i) & 0xFF;
+			else
+				*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+			i -= 8;
+		}
 	}
 }
 
@@ -59,15 +62,26 @@ int	render_line(t_img *img, t_line line)
 	pixelY = line.begin.y;
 	if (pixels > 0)
 	{
-		color_change = (ft_nb_color_a_to_b(line.end.color, line.begin.color)) / pixels;
-		color_change2 = (ft_nb_color_a_to_b(line.begin.color, line.end.color)) / pixels;
-		if (color_change2 < color_change)
+		color_change = (ft_nb_color_a_to_b(line.end.color, line.begin.color))
+			/ pixels;
+		color_change2 = (ft_nb_color_a_to_b(line.begin.color, line.end.color))
+			/ pixels;
+		if (color_change2 <= color_change)
 			color_change = color_change2;
 	}
 	while (pixels)
 	{
 		if (ft_pixel_is_printable(pixelX, pixelY) == true)
-			img_pix_put(img, pixelX, pixelY, ft_multiple_color_change(line.begin.color, pixels * color_change));
+		{
+			if (line.begin.z < line.end.z)
+				img_pix_put(img, pixelX, pixelY,
+					ft_multiple_color_change(line.end.color, pixels
+						* color_change, 2));
+			else
+				img_pix_put(img, pixelX, pixelY,
+					ft_multiple_color_change(line.end.color, pixels
+						* color_change, 1));
+		}
 		pixelX += deltaX;
 		pixelY += deltaY;
 		--pixels;
@@ -96,27 +110,31 @@ void	ft_create_line(int i, int j, t_map map, t_data *data, int mode)
 {
 	t_2dcoor	end;
 	t_2dcoor	begin;
-	int		z;
-	int		color;
+	int			z;
+	int			color;
 
 	if (mode == 1)
 	{
 		z = atoi(map.map[i][j]);
 		color = ft_parse_color(*data, map.map[i][j]);
 		begin = convertortho(i, j, z, data, color);
+		begin.z = z;
 		z = atoi(map.map[i + 1][j]);
-                color = ft_parse_color(*data, map.map[i + 1][j]);
+		color = ft_parse_color(*data, map.map[i + 1][j]);
 		end = convertortho(i + 1, j, z, data, color);
+		end.z = z;
 		render_line(&data->img, (t_line){begin, end, data->colorl});
 	}
 	else
 	{
 		z = atoi(map.map[i][j]);
-                color = ft_parse_color(*data, map.map[i][j]);
+		color = ft_parse_color(*data, map.map[i][j]);
 		begin = convertortho(i, j, z, data, color);
+		begin.z = z;
 		z = atoi(map.map[i][j + 1]);
-                color = ft_parse_color(*data, map.map[i][j + 1]);
+		color = ft_parse_color(*data, map.map[i][j + 1]);
 		end = convertortho(i, j + 1, z, data, color);
+		end.z = z;
 		render_line(&data->img, (t_line){begin, end, data->colorl});
 	}
 }
@@ -127,7 +145,11 @@ int	render(t_data *data)
 	int		i;
 	int		j;
 
-	data->colorl = ft_multiple_color_change(data->colorl, 1);
+	if (data->partymode == 1)
+		data->colorb = ft_multiple_color_change(data->colorb,
+				data->gradientspeed, 2);
+	data->colorl = ft_multiple_color_change(data->colorl, data->gradientspeed,
+			1);
 	render_background(&data->img, data->colorb);
 	map = data->map;
 	i = 0;

@@ -15,7 +15,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC		=	cc
 
-CFLAGS		=	 -Wall -Wextra -Werror
+CFLAGS		=	 -Wall -Wextra -Werror -g3
 
 RM		=	rm -f
 

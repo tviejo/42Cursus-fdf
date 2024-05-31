@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:17:33 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ void	ft_init_view(t_data *data, t_map map)
 	data->leny = map.y;
 	data->lenz = map.z;
 	data->colorb = BLACK_PIXEL;
-	data->colorl = WHITE_PIXEL;
+	data->colorl = BLACK_PIXEL;
+	data->partymode = 0;
+	data->gradientspeed = 1;
+	data->gradientsize = 10;
 }

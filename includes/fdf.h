@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 11:33:09 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:52:02 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 
 # define MLX_ERROR 1
 
@@ -62,6 +62,7 @@ typedef struct s_2dcoor
 	int		x;
 	int		y;
 	int		color;
+	int		z;
 }			t_2dcoor;
 
 typedef struct s_map
@@ -91,6 +92,9 @@ typedef struct s_data
 	char	*arg;
 	int		colorb;
 	int		colorl;
+	int		gradientspeed;
+	int		partymode;
+	int		gradientsize;
 }			t_data;
 
 typedef struct s_line
@@ -100,8 +104,9 @@ typedef struct s_line
 	int		color;
 }			t_line;
 
+int                     ft_color_rchange(int color);
 int     ft_nb_color_a_to_b(int  colorbegin, int colorend);
-int     ft_multiple_color_change(int color, int n);
+int     ft_multiple_color_change(int color, int n, int mode);
 int     ft_parse_color(t_data data, char *str);
 int			ft_free_map(t_map *map);
 int			ft_color_change(int color);

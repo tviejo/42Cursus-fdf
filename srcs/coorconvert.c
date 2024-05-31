@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:02:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 22:09:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/05/31 20:20:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_3dcoor	ft_rotax(t_3dcoor point3D, t_data *data)
 	float	zrot;
 	float	yrot;
 
-	rad = data->rotax * (M_PI / 180.0);
+	rad = data->rotax * (3.14 / 180.0);
 	ztrans = point3D.z - (data->lenz / 2);
 	ytrans = point3D.y - (data->leny / 2);
 	zrot = (ztrans * cos(rad) - ytrans * sin(rad));
@@ -45,7 +45,7 @@ t_3dcoor	ft_rotaz(t_3dcoor point3D, t_data *data)
 	float	xrot;
 	float	yrot;
 
-	rad = data->rotaz * (M_PI / 180.0);
+	rad = data->rotaz * (3.14 / 180.0);
 	xtrans = point3D.x - (data->lenx / 2);
 	ytrans = point3D.y - (data->leny / 2);
 	xrot = (xtrans * cos(rad) - ytrans * sin(rad));
@@ -63,7 +63,7 @@ t_3dcoor	ft_rotay(t_3dcoor point3D, t_data *data)
 	float	xrot;
 	float	zrot;
 
-	rad = data->rotay * (M_PI / 180.0);
+	rad = data->rotay * (3.14 / 180.0);
 	xtrans = point3D.x - (data->lenx / 2);
 	ztrans = point3D.z - (data->lenz / 2);
 	xrot = (xtrans * cos(rad) - ztrans * sin(rad));
