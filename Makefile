@@ -28,12 +28,27 @@ INCLUDES	= 	-I/includes/fdf.h -I/opt/X11/include -Imlx
 
 MLX_FLAGS	=	-lm -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11
 
+
+ifndef ECHO
+T := $(shell $(MAKE) $(MAKECMDGOALS) --no-print-directory \
+      -nrRf $(firstword $(MAKEFILE_LIST)) \
+      ECHO="COUNTTHIS" | grep -c "COUNTTHIS")
+
+N := x
+C = $(words $N)$(eval N := x $N)
+ECHO = echo "`expr " [\`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`%]"
+endif
+
 all:                    ${NAME}
+						@$(ECHO) All done
 
 ${NAME}:                ${OBJS}
+				$(MAKE) -C ./mlx/
 				$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDES) $(MLX_FLAGS)
+				
 
 $(OBJS):                $(OBJ_DIR)%.o: %.c
+						$(ECHO) Compiling $@
 				mkdir -p $(OBJ_DIR)
 				mkdir -p objs/Parsing/
 				mkdir -p objs/Color/
@@ -47,10 +62,14 @@ $(OBJS):                $(OBJ_DIR)%.o: %.c
 clean:
 			$(RM) -r $(OBJ_DIR)
 			${RM} ${OBJS} ${BOBJS}
+			$(MAKE) clean -C ./mlx/
+			@$(ECHO) Clean done
 
 fclean:			clean
 				${RM} ${NAME}
+				@$(ECHO) Fclean done
 
 re:				fclean all
 
 .PHONY:			all clean fclean re
+.SILENT:
