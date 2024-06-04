@@ -5,9 +5,14 @@ SRC_DIR		=	srcs/
 
 OBJ_DIR         =       objs/
  
-SRCS		=	ft_atoi.c ft_parse.c  ft_split.c ft_utils.c close.c colorconvert.c\
-			get_next_line.c get_next_line_utils.c color.c parse_color.c render_line.c\
-			coorconvert.c render.c key.c init_view.c rotate.c color_line.c main.c	
+SRCS		=	Parsing/ft_atoi.c Parsing/ft_parse.c Parsing/ft_split.c Parsing/parse_color.c \
+				Parsing/get_next_line.c Parsing/get_next_line_utils.c\
+				Color/color.c Color/color_line.c Color/colorconvert.c \
+				Coordinate/coorconvert.c Coordinate/rotate.c \
+				Main/main.c Main/key.c Main/init_view.c \
+				Render/render.c Render/render_line.c \
+				Utils/ft_utils.c \
+				Close/close.c
 
 vpath %.c $(SRC_DIR)
 
@@ -30,6 +35,13 @@ ${NAME}:                ${OBJS}
 
 $(OBJS):                $(OBJ_DIR)%.o: %.c
 				mkdir -p $(OBJ_DIR)
+				mkdir -p objs/Parsing/
+				mkdir -p objs/Color/
+				mkdir -p objs/Close/
+				mkdir -p objs/Coordinate/
+				mkdir -p objs/Main/
+				mkdir -p objs/Render/
+				mkdir -p objs/Utils/
 				$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:

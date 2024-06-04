@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 14:50:01 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:27:44 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ typedef struct s_3dcoor
 	int			y;
 	int			z;
 }				t_3dcoor;
+
+typedef struct s_render
+{
+	double		deltax;
+	double		deltay;
+	double		pixelx;
+	double		pixely;
+}				t_render;
 
 typedef struct s_2dcoor
 {
@@ -159,5 +167,6 @@ t_map			create_map(char *argv);
 void			ft_put_line(t_data *data);
 bool			ft_pixel_is_printable(int pixelX, int pixelY);
 int				ft_color_line(t_line line, int pixels);
+void			ft_close(t_data *data);
 
 #endif

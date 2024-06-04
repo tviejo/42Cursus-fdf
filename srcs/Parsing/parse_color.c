@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 21:46:42 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 14:59:56 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 15:34:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	hexstringtoint(const char *hexString)
 	i = 0;
 	while (hexString[i] != 'x' && hexString[i] != '\0' && hexString[i] != 'X')
 		i++;
-	i++;
-	if (hexString[i] != '\0')
+	if (hexString[++i] != '\0')
 	{
 		while (hexString[i] != '\0')
 		{

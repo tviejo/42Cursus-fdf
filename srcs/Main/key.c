@@ -6,29 +6,14 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 13:22:27 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:28:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	handle_keypress(int keysym, t_data *data)
+void	ft_key_movement(int keysym, t_data *data)
 {
-	if (keysym == XK_Escape)
-	{
-		ft_free_map(&data->map);
-		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		data->win_ptr = NULL;
-		free(data->mlx_ptr);
-		exit(0);
-	}
-	if (keysym == 122)
-		data->inter.zoom += 1;
-	if (keysym == 120)
-		if (data->inter.zoom > 1)
-			data->inter.zoom -= 1;
 	if (keysym == 113)
 		data->inter.transx += 1;
 	if (keysym == 119)
@@ -49,6 +34,10 @@ int	handle_keypress(int keysym, t_data *data)
 		data->inter.rotaz += 1;
 	if (keysym == 118)
 		data->inter.rotaz -= 1;
+}
+
+void	ft_key_color(int keysym, t_data *data)
+{
 	if (keysym == 116)
 		data->inter.colorb = ft_ncolor_change(data->inter.colorb, 10,
 				2);
@@ -67,6 +56,10 @@ int	handle_keypress(int keysym, t_data *data)
 	if (keysym == 108)
 		if (data->inter.gradientsize > 0.1)
 			data->inter.gradientsize /= 2;
+}
+
+void	ft_key_party(int keysym, t_data *data)
+{
 	if (keysym == 112)
 	{
 		if (data->inter.partymode == 1)
@@ -80,5 +73,22 @@ int	handle_keypress(int keysym, t_data *data)
 			data->inter.gradientspeed = 20;
 		}
 	}
+}
+
+int	handle_keypress(int keysym, t_data *data)
+{
+	if (keysym == XK_Escape)
+	{
+		ft_close(data);
+		exit(0);
+	}
+	if (keysym == 122)
+		data->inter.zoom += 1;
+	if (keysym == 120)
+		if (data->inter.zoom > 1)
+			data->inter.zoom -= 1;
+	ft_key_movement(keysym, data);
+	ft_key_color(keysym, data);
+	ft_key_party(keysym, data);
 	return (0);
 }
