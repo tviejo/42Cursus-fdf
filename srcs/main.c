@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 20:20:48 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:50:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int argc, char **argv)
 	(void)argc;
 	data.arg = argv[1];
 	map = create_map(data.arg);
+	if (map.x == 0 || map.y == 0)
+		return (ft_free_map(&map), 1);
 	data.map = map;
 	ft_init_view(&data, map);
 	data.mlx_ptr = mlx_init();
@@ -28,10 +30,7 @@ int	main(int argc, char **argv)
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT,
 			"fdf tviejo");
 	if (data.win_ptr == NULL)
-	{
-		free(data.win_ptr);
-		return (MLX_ERROR);
-	}
+		return (free(data.win_ptr), MLX_ERROR);
 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);

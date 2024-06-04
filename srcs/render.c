@@ -6,11 +6,22 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 20:16:34 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:53:16 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+bool	ft_pixel_is_printable(int pixelX, int pixelY)
+{
+	if (pixelX < 0 || pixelY < 0)
+		return (false);
+	if (pixelX > WINDOW_WIDTH)
+		return (false);
+	if (pixelY > WINDOW_WIDTH)
+		return (false);
+	return (true);
+}
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -32,63 +43,6 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-bool	ft_pixel_is_printable(int pixelX, int pixelY)
-{
-	if (pixelX < 0 || pixelY < 0)
-		return (false);
-	if (pixelX > WINDOW_WIDTH)
-		return (false);
-	if (pixelY > WINDOW_WIDTH)
-		return (false);
-	return (true);
-}
-
-int	render_line(t_img *img, t_line line)
-{
-	double	deltaX;
-	double	deltaY;
-	int		pixels;
-	double	pixelX;
-	double	pixelY;
-	float	color_change;
-	float	color_change2;
-
-	deltaX = line.end.x - line.begin.x;
-	deltaY = line.end.y - line.begin.y;
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels;
-	deltaY /= pixels;
-	pixelX = line.begin.x;
-	pixelY = line.begin.y;
-	if (pixels > 0)
-	{
-		color_change = (ft_nb_color_a_to_b(line.end.color, line.begin.color))
-			/ pixels;
-		color_change2 = (ft_nb_color_a_to_b(line.begin.color, line.end.color))
-			/ pixels;
-		if (color_change2 <= color_change)
-			color_change = color_change2;
-	}
-	while (pixels)
-	{
-		if (ft_pixel_is_printable(pixelX, pixelY) == true)
-		{
-			if (line.begin.z < line.end.z)
-				img_pix_put(img, pixelX, pixelY,
-					ft_multiple_color_change(line.end.color, pixels
-						* color_change, 2));
-			else
-				img_pix_put(img, pixelX, pixelY,
-					ft_multiple_color_change(line.end.color, pixels
-						* color_change, 1));
-		}
-		pixelX += deltaX;
-		pixelY += deltaY;
-		--pixels;
-	}
-	return (0);
-}
-
 void	render_background(t_img *img, int color)
 {
 	int	i;
@@ -106,75 +60,25 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-void	ft_create_line(int i, int j, t_map map, t_data *data, int mode)
-{
-	t_2dcoor	end;
-	t_2dcoor	begin;
-	int			z;
-	int			color;
-
-	if (mode == 1)
-	{
-		z = atoi(map.map[i][j]);
-		color = ft_parse_color(*data, map.map[i][j]);
-		begin = convertortho(i, j, z, data, color);
-		begin.z = z;
-		z = atoi(map.map[i + 1][j]);
-		color = ft_parse_color(*data, map.map[i + 1][j]);
-		end = convertortho(i + 1, j, z, data, color);
-		end.z = z;
-		render_line(&data->img, (t_line){begin, end, data->colorl});
-	}
-	else
-	{
-		z = atoi(map.map[i][j]);
-		color = ft_parse_color(*data, map.map[i][j]);
-		begin = convertortho(i, j, z, data, color);
-		begin.z = z;
-		z = atoi(map.map[i][j + 1]);
-		color = ft_parse_color(*data, map.map[i][j + 1]);
-		end = convertortho(i, j + 1, z, data, color);
-		end.z = z;
-		render_line(&data->img, (t_line){begin, end, data->colorl});
-	}
-}
-
 int	render(t_data *data)
 {
-	t_map	map;
-	int		i;
-	int		j;
-
-	if (data->partymode == 1)
-		data->colorb = ft_multiple_color_change(data->colorb,
-				data->gradientspeed, 2);
-	data->colorl = ft_multiple_color_change(data->colorl, data->gradientspeed,
-			1);
-	render_background(&data->img, data->colorb);
-	map = data->map;
-	i = 0;
-	while (i < map.x - 1)
-	{
-		j = 0;
-		while (j < map.y)
-		{
-			ft_create_line(i, j, map, data, 1);
-			j++;
-		}
-		i++;
-	}
-	j = 0;
-	while (j < map.y - 1)
-	{
-		i = 0;
-		while (i < map.x)
-		{
-			ft_create_line(i, j, map, data, 2);
-			i++;
-		}
-		j++;
-	}
+	if (data->inter.partymode == 1)
+		data->inter.colorb = ft_ncolor_change(data->inter.colorb,
+				data->inter.gradientspeed, 2);
+	data->inter.colorl = ft_ncolor_change(data->inter.colorl,
+			data->inter.gradientspeed, 1);
+	render_background(&data->img, data->inter.colorb);
+	ft_put_line(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,
 		0);
 	return (0);
 }
+
+/*	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 100, WHITE_PIXEL, HUD1);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 120, WHITE_PIXEL, HUD2);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 140, WHITE_PIXEL, HUD3);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 160, WHITE_PIXEL, HUD4);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 180, WHITE_PIXEL, HUD5);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 200, WHITE_PIXEL, HUD6);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 220, WHITE_PIXEL, HUD7);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 240, WHITE_PIXEL, HUD8);*/

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 20:16:19 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:22:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,57 +25,59 @@ int	handle_keypress(int keysym, t_data *data)
 		exit(0);
 	}
 	if (keysym == 122)
-		data->zoom += 1;
+		data->inter.zoom += 1;
 	if (keysym == 120)
-		if (data->zoom > 1)
-			data->zoom -= 1;
+		if (data->inter.zoom > 1)
+			data->inter.zoom -= 1;
 	if (keysym == 113)
-		data->transx += 1;
+		data->inter.transx += 1;
 	if (keysym == 119)
-		data->transx -= 1;
+		data->inter.transx -= 1;
 	if (keysym == 97)
-		data->transy += 1;
+		data->inter.transy += 1;
 	if (keysym == 115)
-		data->transy -= 1;
+		data->inter.transy -= 1;
 	if (keysym == 101)
-		data->rotax += 1;
+		data->inter.rotax += 1;
 	if (keysym == 114)
-		data->rotax -= 1;
+		data->inter.rotax -= 1;
 	if (keysym == 100)
-		data->rotay += 1;
+		data->inter.rotay += 1;
 	if (keysym == 102)
-		data->rotay -= 1;
+		data->inter.rotay -= 1;
 	if (keysym == 99)
-		data->rotaz += 1;
+		data->inter.rotaz += 1;
 	if (keysym == 118)
-		data->rotaz -= 1;
+		data->inter.rotaz -= 1;
 	if (keysym == 116)
-		data->colorb = ft_multiple_color_change(data->colorb, 10, 2);
+		data->inter.colorb = ft_ncolor_change(data->inter.colorb, 10,
+				2);
 	if (keysym == 121)
-		data->colorl = ft_multiple_color_change(data->colorl, 10, 1);
+		data->inter.colorl = ft_ncolor_change(data->inter.colorl, 10,
+				1);
 	if (keysym == 117)
-		if (data->gradientspeed < 50)
-			data->gradientspeed += 1;
+		if (data->inter.gradientspeed < 50)
+			data->inter.gradientspeed += 1;
 	if (keysym == 105)
-		if (data->gradientspeed > 0)
-			data->gradientspeed -= 1;
+		if (data->inter.gradientspeed > 0)
+			data->inter.gradientspeed -= 1;
 	if (keysym == 107)
-		if (data->gradientspeed < 50)
-			data->gradientsize += 1;
+		if (data->inter.gradientsize < 10)
+			data->inter.gradientsize *= 2;
 	if (keysym == 108)
-		if (data->gradientspeed > 0)
-			data->gradientsize -= 1;
+		if (data->inter.gradientsize > 0.1)
+			data->inter.gradientsize /= 2;
 	if (keysym == 112)
 	{
-		if (data->partymode == 1)
+		if (data->inter.partymode == 1)
 		{
-			data->partymode = 0;
-			data->gradientspeed = 1;
+			data->inter.partymode = 0;
+			data->inter.gradientspeed = 1;
 		}
 		else
 		{
-			data->partymode = 1;
-			data->gradientspeed = 20;
+			data->inter.partymode = 1;
+			data->inter.gradientspeed = 20;
 		}
 	}
 	return (0);

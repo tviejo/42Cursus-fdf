@@ -6,45 +6,40 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:10 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:41:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	ft_lenz(t_map *map)
+void	ft_find_zmaxmin(t_map *map, int i, int j)
 {
-	int	i;
-	int	j;
-	int	min;
-	int	max;
-
-	min = 0;
-	max = 0;
-	i = 0;
-	while (map->map[i] != NULL)
+	map->zmax = 0;
+	map->zmin = 0;
+	j--;
+	i--;
+	while (i > 0)
 	{
-		j = 0;
-		while (map->map[i][j] != NULL)
+		while (j > 0)
 		{
-			if (atoi(map->map[i][j]) > max)
-				max = atoi(map->map[i][j]);
-			else if (atoi(map->map[i][j]) < min)
-				min = atoi(map->map[i][j]);
-			j++;
+			if (map->map[i][j][0] > map->zmax)
+				map->zmax = map->map[i][j][0];
+			else if (map->map[i][j][0] < map->zmin)
+				map->zmin = map->map[i][j][0];
+			j--;
 		}
-		i++;
+		i--;
 	}
-	return (max - min);
 }
 
-char	**ft_read_line(int fd)
+int	**ft_read_line(int fd, int *leny)
 {
 	char	*line;
-	char	**point;
+	int		**point;
 
 	line = get_next_line(fd);
-	point = ft_split(line, ' ');
+	*leny = ft_count_words(line, ' ');
+	point = ft_split_map(line, ' ', *leny);
 	free(line);
 	return (point);
 }
@@ -70,16 +65,6 @@ int	ft_size_tab(char *argv)
 	return (i);
 }
 
-static int	ft_leny(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != NULL)
-		i++;
-	return (i);
-}
-
 t_map	create_map(char *argv)
 {
 	int		fd;
@@ -89,23 +74,22 @@ t_map	create_map(char *argv)
 	int		leny;
 
 	nb_line = ft_size_tab(argv);
-	map.map = (char ***)malloc((nb_line + 1) * sizeof(char **));
+	map.map = (int ***)malloc((nb_line + 1) * sizeof(int **));
 	if (map.map == NULL)
 		return (map);
 	fd = open(argv, O_RDONLY);
 	i = 0;
 	while (i < nb_line - 1)
 	{
-		map.map[i] = ft_read_line(fd);
-		if (i > 0 && ft_leny(map.map[i]) != leny)
+		map.map[i] = (int **)ft_read_line(fd, &leny);
+		if (i > 0 && map.y != leny)
 			return (map.x = 0, map.y = 0, map);
-		leny = ft_leny(map.map[i]);
+		map.y = leny;
 		i++;
 	}
 	map.map[i] = NULL;
 	map.x = i;
 	map.y = leny;
-	map.z = ft_lenz(&map);
-	close(fd);
-	return (map);
+	ft_find_zmaxmin(&map, map.x, map.y);
+	return (close(fd), map);
 }

@@ -6,13 +6,13 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:07:47 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:07 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/01 13:22:16 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
 	unsigned long long int	cpt;
 	int						sign;

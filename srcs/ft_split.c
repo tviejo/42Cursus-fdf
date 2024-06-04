@@ -6,13 +6,13 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:14:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/01 17:57:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static int	ft_count_words(const char *str, char c)
+int	ft_count_words(char *str, char c)
 {
 	int	nb_words;
 	int	i;
@@ -30,7 +30,7 @@ static int	ft_count_words(const char *str, char c)
 	return (nb_words);
 }
 
-static int	ft_len_words(const char *str, char c)
+static int	ft_len_words(char *str, char c)
 {
 	int	i;
 	int	len_words;
@@ -45,23 +45,27 @@ static int	ft_len_words(const char *str, char c)
 	return (len_words);
 }
 
-static char	*ft_copy_line(const char **str, char c)
+static int	*ft_copy_line(char **str, char c)
 {
-	char	*line;
-	int		len_words;
+	int	*line;
+	int	len_words;
 
 	while (**str == c)
 		++(*str);
 	len_words = ft_len_words(*str, c);
-	line = (char *)malloc((len_words + 1) * sizeof(char));
+	if (len_words < 2)
+		len_words = 2;
+	line = (int *)malloc(3 * sizeof(int));
 	if (line == NULL)
 		return (NULL);
-	ft_strlcpy(line, *str, len_words + 1);
+	line[0] = ft_atoi(*str);
+	line[1] = hexstringtoint(*str);
+	line[2] = '\0';
 	*str += len_words;
 	return (line);
 }
 
-static void	ft_free(char **str)
+static void	ft_free(int **str)
 {
 	int	i;
 
@@ -74,16 +78,14 @@ static void	ft_free(char **str)
 	free(str);
 }
 
-char	**ft_split(const char *str, char c)
+int	**ft_split_map(char *str, char c, int nb_words)
 {
-	int		i;
-	int		nb_words;
-	char	**output;
+	int	i;
+	int	**output;
 
 	if (str == NULL)
 		return (NULL);
-	nb_words = ft_count_words(str, c);
-	output = (char **)malloc((nb_words + 1) * sizeof(char *));
+	output = (int **)malloc((nb_words + 1) * sizeof(int *));
 	if (output != NULL)
 	{
 		i = 0;
@@ -102,51 +104,3 @@ char	**ft_split(const char *str, char c)
 	}
 	return (output);
 }
-/*
-int	main(void)
-{
-	char	*str = "qwertyubdbdbekjqkjkbjejdwbhjdbejbdqwwndwjwe";
-	char	**output;
-	int	i;
-
-//	output = ft_count_words(str, charset);
-//	printf("%d" , outputi);
-//	output = ft_len_words(str, charset);
-//      printf("%d" , output);
-
-	output = ft_split("lorem ipsum dolor sit amet, consectetur ", ' ');
-	i = 0;
-	while (output != NULL && output[i] != NULL)
-	{
-			printf("1: %s\n" , output[i]);
-		i++;
-	}
-	ft_free(output);
-	printf("\n");
-	output = ft_split("  qwerty  azerty  ", ' ');
-		i = 0;
-		while (output[i] != NULL)
-		{
-				printf("2: %s\n" , output[i]);
-				i++;
-		}
-	ft_free(output);
-		printf("\n");
-	output = ft_split(str, ' ');
-		i = 0;
-		while (output[i] != NULL)
-		{
-				printf("3: %s\n" , output[i]);
-				i++;
-		}
-	ft_free(output);
-	printf("\n");
-//        output = ft_split(NULL, 'e');
-//        i = 0;
-//        while (output != NULL && output[i] != NULL)
-//        {
-//                printf("4: %s\n" , output[i]);
-//                i++;
-//        }
-//	ft_free(output);
-}*/

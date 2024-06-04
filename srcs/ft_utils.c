@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:34:30 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/30 13:43:17 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:59:33 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,3 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	dest[counter] = '\0';
 	return (len_src);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int	main(void)
-{
-		int     result;
-		char    dest[] = "ABCD";
-		char    src[] = "EFGH";
-
-		result = ft_strlcpy(dest, src, 0);
-		printf("%d", result);
-	printf("\n%s", dest);
-}
-*/

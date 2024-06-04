@@ -6,37 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:21:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/05/31 20:15:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:22:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-int	ft_color_to_rgb(int r, int g, int b)
-{
-	int	rgb;
-
-	rgb = r;
-	rgb <<= 8;
-	rgb |= g;
-	rgb <<= 8;
-	rgb |= b;
-	return (rgb);
-}
-
-u_int8_t	getred(int rgb)
-{
-	return (rgb >> 16);
-}
-u_int8_t	getgreen(int rgb)
-{
-	return (rgb >> 8);
-}
-
-u_int8_t	getblue(int rgb)
-{
-	return (rgb);
-}
 
 int	ft_nb_color_a_to_b(int colorbegin, int colorend)
 {
@@ -53,7 +27,7 @@ int	ft_nb_color_a_to_b(int colorbegin, int colorend)
 	return (i);
 }
 
-int	ft_multiple_color_change(int color, int n, int mode)
+int	ft_ncolor_change(int color, int n, int mode)
 {
 	int	i;
 
@@ -91,9 +65,7 @@ int	ft_color_change(int color)
 		b += 1;
 	}
 	else if (b > 0)
-	{
 		b -= 1;
-	}
 	else
 		return (BLACK_PIXEL);
 	return (ft_color_to_rgb(r, g, b));
@@ -121,37 +93,8 @@ int	ft_color_rchange(int color)
 		r += 1;
 	}
 	else if (r > 0)
-	{
 		r -= 1;
-	}
 	else
 		return (BLACK_PIXEL);
 	return (ft_color_to_rgb(r, g, b));
 }
-
-/*
-	if (color < 16711680)
-		color = setRed(color);
-	else if (color - 16711680 < 65280)
-		color = setGreen(color);
-	else if (color - 16711680 - 65280 < 255)
-		color = setBlue(color);
-	else
-		color = BLACK_PIXEL;
-	return (color);*/
-
-/*
-int	main(void)
-{
-	int	i;
-	int	color;
-
-	color = 0xffffff;
-	i = 0;
-	while (i < 1000)
-	{
-		color = ft_color_change(color);
-		i++;
-	}
-}
-*/
