@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:36:55 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 12:37:03 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/05 16:38:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_3dcoor	ft_rotax(t_3dcoor point3D, t_data *data)
 	float	yrot;
 
 	rad = data->inter.rotax * (0.0174);
-	ztrans = point3D.z + (data->inter.lenz / 2);
-	ytrans = point3D.y + (data->inter.leny / 2);
+	ztrans = point3D.z - (data->map.zmax / 2);
+	ytrans = point3D.y - (data->map.y / 2);
 	zrot = (ztrans * cos(rad) - ytrans * sin(rad));
 	yrot = (ztrans * sin(rad) + ytrans * cos(rad));
-	point3D.z = zrot - (data->inter.lenz / 2);
-	point3D.y = yrot - (data->inter.leny / 2);
+	point3D.z = zrot + (data->map.zmax / 2);
+	point3D.y = yrot + (data->map.y / 2);
 	return (point3D);
 }
 
@@ -39,12 +39,12 @@ t_3dcoor	ft_rotaz(t_3dcoor point3D, t_data *data)
 	float	yrot;
 
 	rad = data->inter.rotaz * (0.0174);
-	xtrans = point3D.x + (data->inter.lenx / 2);
-	ytrans = point3D.y + (data->inter.leny / 2);
+	xtrans = point3D.x - (data->map.x / 2);
+	ytrans = point3D.y - (data->map.y / 2);
 	xrot = (xtrans * cos(rad) - ytrans * sin(rad));
 	yrot = (xtrans * sin(rad) + ytrans * cos(rad));
-	point3D.x = xrot - (data->inter.lenx / 2);
-	point3D.y = yrot - (data->inter.leny / 2);
+	point3D.x = xrot + (data->map.x / 2);
+	point3D.y = yrot + (data->map.y / 2);
 	return (point3D);
 }
 
@@ -57,11 +57,11 @@ t_3dcoor	ft_rotay(t_3dcoor point3D, t_data *data)
 	float	zrot;
 
 	rad = data->inter.rotay * (0.0174);
-	xtrans = point3D.x + (data->inter.lenx / 2);
-	ztrans = point3D.z + (data->inter.lenz / 2);
+	xtrans = point3D.x - (data->map.x / 2);
+	ztrans = point3D.z - (data->map.zmax / 2);
 	xrot = (xtrans * cos(rad) - ztrans * sin(rad));
 	zrot = (xtrans * sin(rad) + ztrans * cos(rad));
-	point3D.x = xrot - (data->inter.lenx / 2);
-	point3D.z = zrot - (data->inter.lenz / 2);
+	point3D.x = xrot + (data->map.x / 2);
+	point3D.z = zrot + (data->map.zmax / 2);
 	return (point3D);
 }

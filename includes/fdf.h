@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 16:27:44 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/05 14:49:42 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,7 @@
 # define BLUE_PIXEL 0xFF
 # define WHITE_PIXEL 0xFFFFFF
 
-# define HUD1 "--------------------"
-# define HUD2 "| R -< rotax  >+ E |"
-# define HUD3 "| F -< rotay  >+ D |"
-# define HUD4 "| V -< rotaz  >+ C |"
-# define HUD5 "| Q -< transx >+ W |"
-# define HUD6 "| Z -< zoom   >+ X |"
-# define HUD7 "|      party  >  P |"
-# define HUD8 "--------------------"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
-# endif
+# define BUFFER_SIZE 100000
 
 typedef struct s_img
 {
@@ -105,6 +95,7 @@ typedef struct s_inter
 	int			rotaz;
 	int			transx;
 	int			transy;
+	int			transz;
 	int			lenx;
 	int			leny;
 	int			lenz;
@@ -127,6 +118,7 @@ typedef struct s_data
 
 }				t_data;
 
+void			ft_put_hud(t_data *data);
 int				ft_color_to_rgb(int r, int g, int b);
 u_int8_t		getred(int rgb);
 u_int8_t		getblue(int rgb);

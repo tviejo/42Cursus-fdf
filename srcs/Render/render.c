@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 14:53:16 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/05 17:37:29 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,6 @@ int	render(t_data *data)
 	ft_put_line(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,
 		0);
+	ft_put_hud(data);
 	return (0);
 }
-
-/*	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 100, WHITE_PIXEL, HUD1);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 120, WHITE_PIXEL, HUD2);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 140, WHITE_PIXEL, HUD3);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 160, WHITE_PIXEL, HUD4);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 180, WHITE_PIXEL, HUD5);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 200, WHITE_PIXEL, HUD6);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 220, WHITE_PIXEL, HUD7);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 100, 240, WHITE_PIXEL, HUD8);*/

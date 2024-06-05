@@ -12,6 +12,7 @@ SRCS		=	Parsing/ft_atoi.c Parsing/ft_parse.c Parsing/ft_split.c Parsing/parse_co
 				Main/main.c Main/key.c Main/init_view.c \
 				Render/render.c Render/render_line.c \
 				Utils/ft_utils.c \
+				HUD/hud.c \
 				Close/close.c
 
 vpath %.c $(SRC_DIR)
@@ -57,6 +58,7 @@ $(OBJS):                $(OBJ_DIR)%.o: %.c
 				mkdir -p objs/Main/
 				mkdir -p objs/Render/
 				mkdir -p objs/Utils/
+				mkdir -p objs/HUD/
 				$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:
