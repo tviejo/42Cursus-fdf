@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/05 16:11:17 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 18:38:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	ft_init_view(t_data *data, t_map map)
 	data->inter.partymode = 0;
 	data->inter.gradientspeed = 0;
 	data->inter.gradientsize = 10;
+	data->inter.view = ISOMETRIC;
 }

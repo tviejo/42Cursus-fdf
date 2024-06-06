@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/05 14:49:42 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 18:38:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 
-# define MLX_ERROR 1
-
 # define BLACK_PIXEL 0x000000
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
@@ -39,6 +37,17 @@
 
 # define BUFFER_SIZE 100000
 
+# define INVALID_ARGUMENT 1
+# define INVALID_READ 2
+# define WINDOW_ERROR 3
+# define MLX_ERROR 4
+# define SUCCESS 0
+
+# define ISOMETRIC 1
+# define PERSPECTIVE 2
+/*
+enum e_fdf_state {error = -1, success_windows, succe};
+*/
 typedef struct s_img
 {
 	void		*mlx_img;
@@ -104,6 +113,7 @@ typedef struct s_inter
 	int			gradientspeed;
 	int			partymode;
 	float		gradientsize;
+	int			view;
 }				t_inter;
 
 typedef struct s_data
@@ -115,7 +125,6 @@ typedef struct s_data
 	t_inter		inter;
 	int			cur_img;
 	char		*arg;
-
 }				t_data;
 
 void			ft_put_hud(t_data *data);
@@ -132,16 +141,15 @@ unsigned int	ft_parse_color(t_data data, int *zcolor);
 int				ft_free_map(t_map *map);
 int				ft_color_change(int color);
 void			ft_init_view(t_data *data, t_map map);
-void			ft_putchar(char c);
-void			ft_putnbr(int nb);
+void			ft_putchar_fd(char c, int fd);
 int				ft_strlen(char *str);
-void			ft_putstr(char *str);
+void			ft_putstr_fd(char *str, int fd);
 void			img_pix_put(t_img *img, int x, int y, int color);
 int				render_line(t_img *img, t_line line);
 void			render_background(t_img *img, int color);
 int				handle_keypress(int keysym, t_data *data);
 int				render(t_data *data);
-t_2dcoor		convertortho(int x, int y, int z, t_data *data);
+t_2dcoor		convert3dto2d(int x, int y, int z, t_data *data);
 t_3dcoor		ft_rotax(t_3dcoor point3D, t_data *data);
 t_3dcoor		ft_rotay(t_3dcoor point3D, t_data *data);
 t_3dcoor		ft_rotaz(t_3dcoor point3D, t_data *data);

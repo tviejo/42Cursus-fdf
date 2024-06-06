@@ -6,35 +6,44 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 12:50:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 18:38:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	main(int argc, char **argv)
+static int	ft_fdf(char *argv)
 {
 	t_data	data;
 	t_map	map;
 
-	(void)argc;
-	data.arg = argv[1];
-	map = create_map(data.arg);
+	map = create_map(argv);
 	if (map.x == 0 || map.y == 0)
-		return (ft_free_map(&map), 1);
+		return (ft_putstr_fd("Invalid parsing\n", 2), ft_free_map(&map),
+			INVALID_READ);
 	data.map = map;
 	ft_init_view(&data, map);
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
-		return (MLX_ERROR);
+		return (ft_putstr_fd("Mlx init error\n", 2), MLX_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT,
 			"fdf tviejo");
 	if (data.win_ptr == NULL)
-		return (free(data.win_ptr), MLX_ERROR);
+		return (free(data.win_ptr), ft_putstr_fd("Mlx error\n", 2),
+			WINDOW_ERROR);
 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_loop(data.mlx_ptr);
+	return (SUCCESS);
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc == 2)
+		return (ft_fdf(argv[1]));
+	else
+		return (ft_putstr_fd("Invalid argument number\n", 2), INVALID_ARGUMENT);
 }

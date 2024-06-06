@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:14:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/01 17:57:47 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 13:50:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_count_words(char *str, char c)
 
 	nb_words = 0;
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i] != '\0' && str[i] != '\n')
 	{
 		if (i == 0 && str[i] != c)
 			nb_words++;

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 16:27:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 13:39:34 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ft_free_map(t_map *map)
 	int	j;
 
 	i = 0;
-	while (map->map[i] != NULL)
+	while (i < map->x)
 	{
 		j = 0;
-		while (map->map[i][j] != NULL)
+		while (j < map->y)
 		{
 			free(map->map[i][j]);
 			j++;

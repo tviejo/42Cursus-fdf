@@ -6,44 +6,21 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:34:30 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 14:59:33 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 11:55:15 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	ft_putchar(char c)
+void	ft_putchar_fd(char c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 }
 
-void	ft_putnbr(int nb)
+void	ft_putstr_fd(char *str, int fd)
 {
-	if (nb == -2147483648)
-	{
-		ft_putstr("-2147483648");
-		return ;
-	}
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		nb = -nb;
-	}
-	if (nb > 9)
-	{
-		ft_putnbr(nb / 10);
-		ft_putchar(nb % 10 + 48);
-	}
-	else
-	{
-		ft_putchar(nb + 48);
-	}
-}
-
-void	ft_putstr(char *str)
-{
-	if (str != NULL)
-		write(1, &str, ft_strlen(str));
+	if (str != NULL && fd >= 0 && fd < 1024)
+		write(fd, &str[0], ft_strlen(str));
 }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)

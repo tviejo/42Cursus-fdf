@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/05 15:57:24 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 14:30:55 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,21 @@ int	handle_keypress(int keysym, t_data *data)
 	if (keysym == XK_Escape)
 	{
 		ft_close(data);
-		exit(0);
+		exit(SUCCESS);
 	}
-	if (keysym == 111)
+	if (keysym == XK_n)
 		ft_init_view(data, data->map);
 	if (keysym == XK_Up)
 		data->inter.zoom += 1;
 	if (keysym == XK_Down)
 		data->inter.zoom -= 1;
+	if (keysym == XK_m)
+	{
+		if (data->inter.view == ISOMETRIC)
+			data->inter.view = PERSPECTIVE;
+		else
+			data->inter.view = ISOMETRIC;
+	}
 	ft_key_movement(keysym, data);
 	ft_key_color(keysym, data);
 	ft_key_party(keysym, data);

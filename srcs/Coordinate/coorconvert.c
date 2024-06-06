@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:02:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/05 16:07:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:21:51 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_3dcoor	ft_trans(t_3dcoor point3d, t_data *data)
 	return (point3d);
 }
 
-t_2dcoor	convertortho(int x, int y, int z, t_data *data)
+t_2dcoor	convert3dto2d(int x, int y, int z, t_data *data)
 {
 	t_2dcoor	point2d;
 	t_3dcoor	point3d;
@@ -45,7 +45,18 @@ t_2dcoor	convertortho(int x, int y, int z, t_data *data)
 	point3d = ft_trans(point3d, data);
 	xtemp = point3d.x;
 	ytemp = point3d.y;
-	point2d.x = -((xtemp - ytemp) * 0.76024);
-	point2d.y = (-point3d.z / 10 + ((xtemp + ytemp) * 0.64964));
+	if (data->inter.view == ISOMETRIC)
+	{
+		point2d.x = -((xtemp - ytemp) * 0.76024);
+		point2d.y = (-point3d.z / 10 + ((xtemp + ytemp) * 0.64964));
+	}
+	else
+	{
+		if (point3d.z == 0)
+			point3d.z = 1;
+		int d = (100/ (2 * tan(0.785)));
+		point2d.x = ((d * (point3d.x - 960)) / (point3d.z)) + 960;
+		point2d.y = -((d* (point3d.y - 540)) / (point3d.z )) + 540;
+	}
 	return (point2d);
 }

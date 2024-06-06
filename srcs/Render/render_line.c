@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:35:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 16:20:53 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/06 18:39:45 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	ft_create_line(int i, int j, t_data *data, int mode)
 
 	if (mode == 1)
 	{
-		begin = convertortho(i, j, data->map.map[i][j][0], data);
-		end = convertortho(i + 1, j, data->map.map[i + 1][j][0], data);
+		begin = convert3dto2d(i, j, data->map.map[i][j][0], data);
+		end = convert3dto2d(i + 1, j, data->map.map[i + 1][j][0], data);
 		begin.color = ft_parse_color(*data, data->map.map[i][j]);
 		end.color = ft_parse_color(*data, data->map.map[i + 1][j]);
 		begin.z = data->map.map[i][j][0];
@@ -82,8 +82,8 @@ void	ft_create_line(int i, int j, t_data *data, int mode)
 	}
 	else
 	{
-		begin = convertortho(i, j, data->map.map[i][j][0], data);
-		end = convertortho(i, j + 1, data->map.map[i][j + 1][0], data);
+		begin = convert3dto2d(i, j, data->map.map[i][j][0], data);
+		end = convert3dto2d(i, j + 1, data->map.map[i][j + 1][0], data);
 		begin.color = ft_parse_color(*data, data->map.map[i][j]);
 		end.color = ft_parse_color(*data, data->map.map[i][j + 1]);
 		begin.z = data->map.map[i][j][0];
