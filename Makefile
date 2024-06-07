@@ -8,11 +8,12 @@ OBJ_DIR         =       objs/
 SRCS		=	Parsing/ft_atoi.c Parsing/ft_parse.c Parsing/ft_split.c Parsing/parse_color.c \
 				Parsing/get_next_line.c Parsing/get_next_line_utils.c\
 				Color/color.c Color/color_line.c Color/colorconvert.c \
-				Coordinate/coorconvert.c Coordinate/rotate.c \
-				Main/main.c Main/key.c Main/init_view.c \
+				Coordinate/coorconvert.c Coordinate/rotate.c Coordinate/mouse_mov.c Coordinate/sinus.c\
+				Main/main.c Main/key.c Main/init_view.c Main/mouse.c\
 				Render/render.c Render/render_line.c \
 				Utils/ft_utils.c \
 				HUD/hud.c \
+				Landing_page/landing_page.c \
 				Close/close.c
 
 vpath %.c $(SRC_DIR)
@@ -59,6 +60,7 @@ $(OBJS):                $(OBJ_DIR)%.o: %.c
 				mkdir -p objs/Render/
 				mkdir -p objs/Utils/
 				mkdir -p objs/HUD/
+				mkdir -p objs/Landing_page/
 				$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:

@@ -6,13 +6,35 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/06 14:30:55 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/07 19:36:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	ft_key_movement(int keysym, t_data *data)
+static void	ft_key_deform(int keysym, t_data *data)
+{
+	if (keysym == XK_t)
+		if (data->inter.deformx < 100)
+			data->inter.deformx *= 2;
+	if (keysym == XK_y)
+		if (data->inter.deformx > 1)
+			data->inter.deformx /= 2;
+	if (keysym == XK_g)
+		if (data->inter.deformy < 100)
+			data->inter.deformy *= 2;
+	if (keysym == XK_h)
+		if (data->inter.deformy > 1)
+			data->inter.deformy /= 2;
+	if (keysym == XK_b)
+		if (data->inter.deformz < 100)
+			data->inter.deformz *= 2;
+	if (keysym == XK_n)
+		if (data->inter.deformz > 0.1)
+			data->inter.deformz /= 2;
+}
+
+static void	ft_key_movement(int keysym, t_data *data)
 {
 	if (keysym == XK_q)
 		data->inter.transx += 2;
@@ -42,29 +64,30 @@ void	ft_key_movement(int keysym, t_data *data)
 
 void	ft_key_color(int keysym, t_data *data)
 {
-	if (keysym == XK_t)
-		data->inter.colorb = ft_ncolor_change(data->inter.colorb, 10,
-				2);
-	if (keysym == XK_y)
-		data->inter.colorl = ft_ncolor_change(data->inter.colorl, 10,
-				1);
+	if (keysym == XK_u || keysym == XK_i || keysym == XK_j || keysym == XK_k
+		|| keysym == XK_o || keysym == XK_p)
+		data->bchange = 1;
 	if (keysym == XK_u)
+		data->inter.colorb = ft_ncolor_change(data->inter.colorb, 10, 2);
+	if (keysym == XK_i)
+		data->inter.colorl = ft_ncolor_change(data->inter.colorl, 10, 1);
+	if (keysym == XK_j)
 		if (data->inter.gradientspeed < 50)
 			data->inter.gradientspeed += 1;
-	if (keysym == XK_i)
+	if (keysym == XK_k)
 		if (data->inter.gradientspeed > 0)
 			data->inter.gradientspeed -= 1;
-	if (keysym == XK_k)
+	if (keysym == XK_o)
 		if (data->inter.gradientsize < 10)
 			data->inter.gradientsize *= 2;
-	if (keysym == XK_l)
+	if (keysym == XK_p)
 		if (data->inter.gradientsize > 0.1)
 			data->inter.gradientsize /= 2;
 }
 
 void	ft_key_party(int keysym, t_data *data)
 {
-	if (keysym == XK_p)
+	if (keysym == XK_l)
 	{
 		if (data->inter.partymode == 1)
 		{
@@ -76,6 +99,7 @@ void	ft_key_party(int keysym, t_data *data)
 			data->inter.partymode = 1;
 			data->inter.gradientspeed = 20;
 		}
+		data->bchange = 1;
 	}
 }
 
@@ -83,15 +107,32 @@ int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 	{
-		ft_close(data);
-		exit(SUCCESS);
+		if (data->exit_page == 0)
+			data->exit_page = 1;
+		else
+		{
+			ft_close(data);
+			exit(SUCCESS);
+		}
 	}
-	if (keysym == XK_n)
+	if ((keysym == XK_Y || keysym == XK_y) && data->exit_page == 1)
+	{
+			ft_close(data);
+			exit(SUCCESS);
+	}
+	if ((keysym == XK_N || keysym == XK_n) && data->exit_page == 1)
+		data->exit_page = 0;
+	if (keysym == XK_space)
+	{
+		data->landing_page = 0;
+	}
+	if (keysym == XK_F1)
 		ft_init_view(data, data->map);
 	if (keysym == XK_Up)
 		data->inter.zoom += 1;
 	if (keysym == XK_Down)
-		data->inter.zoom -= 1;
+		if (data->inter.zoom > 1)
+			data->inter.zoom -= 1;
 	if (keysym == XK_m)
 	{
 		if (data->inter.view == ISOMETRIC)
@@ -100,6 +141,7 @@ int	handle_keypress(int keysym, t_data *data)
 			data->inter.view = ISOMETRIC;
 	}
 	ft_key_movement(keysym, data);
+	ft_key_deform(keysym, data);
 	ft_key_color(keysym, data);
 	ft_key_party(keysym, data);
 	return (0);

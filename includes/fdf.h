@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/06 18:38:27 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/07 19:14:42 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ typedef struct s_img
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			**pixel;
 }				t_img;
 
 typedef struct s_3dcoor
 {
-	int			x;
-	int			y;
-	int			z;
+	float		x;
+	float		y;
+	float		z;
 }				t_3dcoor;
 
 typedef struct s_render
@@ -74,10 +75,10 @@ typedef struct s_render
 
 typedef struct s_2dcoor
 {
-	int			x;
-	int			y;
+	float		x;
+	float		y;
 	int			color;
-	int			z;
+	float		z;
 }				t_2dcoor;
 
 typedef struct s_line
@@ -104,7 +105,14 @@ typedef struct s_inter
 	int			rotaz;
 	int			transx;
 	int			transy;
+	int			mouser;
+	int			mousel;
+	int			mousex;
+	int			mousey;
 	int			transz;
+	float		deformx;
+	float		deformy;
+	float		deformz;
 	int			lenx;
 	int			leny;
 	int			lenz;
@@ -124,9 +132,14 @@ typedef struct s_data
 	t_map		map;
 	t_inter		inter;
 	int			cur_img;
+	int			bchange;
+	int			phase;
+	int			landing_page;
+	int			exit_page;
 	char		*arg;
 }				t_data;
 
+void			mouse_movement(t_data *data);
 void			ft_put_hud(t_data *data);
 int				ft_color_to_rgb(int r, int g, int b);
 u_int8_t		getred(int rgb);
@@ -146,8 +159,10 @@ int				ft_strlen(char *str);
 void			ft_putstr_fd(char *str, int fd);
 void			img_pix_put(t_img *img, int x, int y, int color);
 int				render_line(t_img *img, t_line line);
-void			render_background(t_img *img, int color);
+void			render_background(t_img *img, t_data *data, int color);
 int				handle_keypress(int keysym, t_data *data);
+int				handle_mouse_press(int keysym, int x, int y, t_data *data);
+int				handle_mouse_release(int keysym, int x, int y, t_data *data);
 int				render(t_data *data);
 t_2dcoor		convert3dto2d(int x, int y, int z, t_data *data);
 t_3dcoor		ft_rotax(t_3dcoor point3D, t_data *data);
@@ -168,5 +183,9 @@ void			ft_put_line(t_data *data);
 bool			ft_pixel_is_printable(int pixelX, int pixelY);
 int				ft_color_line(t_line line, int pixels);
 void			ft_close(t_data *data);
+int				ft_sinus(int i, int j, t_data *data);
+int				handle_keypress_landing(int keysym, t_data *data);
+int			render_landing(t_data *data);
+int			render_exit(t_data *data);
 
 #endif

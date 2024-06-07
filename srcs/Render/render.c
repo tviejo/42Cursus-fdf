@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/06 18:38:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/07 19:27:49 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ bool	ft_pixel_is_printable(int pixelX, int pixelY)
 {
 	if (pixelX < 0 || pixelY < 0)
 		return (false);
-	if (pixelX > WINDOW_WIDTH)
+	if (pixelX >= WINDOW_WIDTH)
 		return (false);
-	if (pixelY > WINDOW_WIDTH)
+	if (pixelY >= WINDOW_WIDTH)
 		return (false);
 	return (true);
 }
@@ -43,7 +43,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-void	render_background(t_img *img, int color)
+void	render_background(t_img *img, t_data *data, int color)
 {
 	int	i;
 	int	j;
@@ -54,7 +54,12 @@ void	render_background(t_img *img, int color)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			img_pix_put(img, j++, i, color);
+			if (img->pixel[i][j] == 1 || data->bchange)
+			{
+				img_pix_put(img, j, i, color);
+			}
+			img->pixel[i][j] = 0;
+			j++;
 		}
 		++i;
 	}
@@ -62,12 +67,24 @@ void	render_background(t_img *img, int color)
 
 int	render(t_data *data)
 {
+	if (data->exit_page == 1)
+	{
+		return (render_exit(data));
+	}
+	else if (data->landing_page == 1)
+		return (render_landing(data));
 	if (data->inter.partymode == 1)
+	{
 		data->inter.colorb = ft_ncolor_change(data->inter.colorb,
 				data->inter.gradientspeed, 2);
+		data->phase++;
+	}
+	else
+		data->phase = 0;
 	data->inter.colorl = ft_ncolor_change(data->inter.colorl,
 			data->inter.gradientspeed, 1);
-	render_background(&data->img, data->inter.colorb);
+	mouse_movement(data);
+	render_background(&data->img, data, data->inter.colorb);
 	ft_put_line(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,
 		0);
