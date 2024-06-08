@@ -6,11 +6,29 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:21:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 13:22:27 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 17:10:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	render_black(t_img *img)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+		{
+			img_pix_put(img, j, i, BLACK_PIXEL);
+			j++;
+		}
+		++i;
+	}
+}
 
 int	ft_nb_color_a_to_b(int colorbegin, int colorend)
 {

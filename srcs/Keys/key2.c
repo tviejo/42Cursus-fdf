@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 10:10:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 15:53:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 17:28:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,20 @@ void	ft_key_pages(int keysym, t_data *data)
 	}
 	if ((keysym == XK_N || keysym == XK_n) && data->page.exit_page == 1)
 		data->page.exit_page = 0;
-	if (keysym == XK_space)
+	if (keysym == XK_space && data->page.landing_page == 1)
 	{
 		data->page.landing_page = 0;
-        data->page.parsing_page = 1;
+        data->page.menu_page = 1;
+	}
+	if ((keysym == XK_y || keysym == XK_Y ) && data->page.menu_page == 1)
+	{
+        data->page.menu_page = 0;
+		data->page.parsing_page = 1;
+	}
+	if ((keysym == XK_n || keysym == XK_N ) && data->page.menu_page == 1)
+	{
+		data->file = data->input;
+        data->page.menu_page = 0;
+		data->page.parsing_page = 1;
 	}
 }

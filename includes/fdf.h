@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 16:02:58 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:35:14 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct s_page
 	int			landing_page;
 	int			exit_page;
 	int			parsing_page;
+	int			menu_page;
 }				t_page;
 
 typedef struct s_data
@@ -145,8 +146,10 @@ typedef struct s_data
 	char		*arg;
 	int			**pixel;
 	int			parsed_data;
+	char		*input;
 }				t_data;
 
+char	*ft_strjoin(char const *s1, char s2);
 int				ft_parsing(t_data *data);
 int				render_parsing(t_data *data);
 int				ft_free_img(t_data *data);
@@ -200,6 +203,8 @@ int				render_landing(t_data *data);
 int				render_exit(t_data *data);
 void			ft_key_party(int keysym, t_data *data);
 void			ft_key_pages(int keysym, t_data *data);
-int				ft_zoom(t_map *map);
+int				ft_init_zoom(t_map *map);
+int				render_menu(t_data *data);
+void		render_black(t_img *img);
 
 #endif

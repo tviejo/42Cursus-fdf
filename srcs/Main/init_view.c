@@ -6,13 +6,13 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 16:08:28 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 17:00:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	ft_zoom(t_map *map)
+int	ft_init_zoom(t_map *map)
 {
 	if (map->x > map->y)
 		return (WINDOW_WIDTH / map->x * 0.9);
@@ -53,7 +53,7 @@ void	ft_init_button(t_data *data, t_map map)
 {
 	if (data->parsed_data == 1)
 	{
-		data->inter.zoom = ft_zoom(&map);
+		data->inter.zoom = ft_init_zoom(&map);
 		data->inter.lenx = map.x;
 		data->inter.leny = map.y;
 		data->inter.lenz = map.zmax - map.zmin;

@@ -14,7 +14,7 @@ SRCS		=	Parsing/ft_atoi.c Parsing/ft_parse.c Parsing/ft_split.c Parsing/parse_co
 				Render/render.c Render/render_line.c \
 				Utils/ft_utils.c \
 				HUD/hud.c \
-				Landing_page/landing_page.c \
+				Landing_page/landing_page.c Landing_page/menu_page.c\
 				Close/close.c
 
 vpath %.c $(SRC_DIR)
@@ -31,6 +31,9 @@ INCLUDES	= 	-I/includes/fdf.h -I/opt/X11/include -Imlx
 
 MLX_FLAGS	=	-lm -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11
 
+ifeq ($(debug), true)
+	CFLAGS += -fsanitize=address,undefined
+endif
 
 ifndef ECHO
 T := $(shell $(MAKE) $(MAKECMDGOALS) --no-print-directory \
