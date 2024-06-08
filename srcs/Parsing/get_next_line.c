@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:49 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/06 13:54:48 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 13:51:55 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd > 1023)
 		return (NULL);
 	output = ft_read(buffer, fd);
-	if (output == NULL)
-		return (ft_bzero(buffer, BUFFER_SIZE + 1), NULL);
+	if (output == NULL || output[0] == '\0')
+		return (free(output), ft_bzero(buffer, BUFFER_SIZE + 1), NULL);
 	ft_remove_returned(buffer);
 	output = ft_remove_buffer(output);
 	if (output[0] == '\0')

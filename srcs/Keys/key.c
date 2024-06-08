@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/07 19:36:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 09:54:49 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static void	ft_key_deform(int keysym, t_data *data)
 {
+	if (keysym == XK_Up)
+		data->inter.zoom += 1;
+	if (keysym == XK_Down)
+		if (data->inter.zoom > 1)
+			data->inter.zoom -= 1;
 	if (keysym == XK_t)
 		if (data->inter.deformx < 100)
 			data->inter.deformx *= 2;
@@ -85,54 +90,11 @@ void	ft_key_color(int keysym, t_data *data)
 			data->inter.gradientsize /= 2;
 }
 
-void	ft_key_party(int keysym, t_data *data)
-{
-	if (keysym == XK_l)
-	{
-		if (data->inter.partymode == 1)
-		{
-			data->inter.partymode = 0;
-			data->inter.gradientspeed = 1;
-		}
-		else
-		{
-			data->inter.partymode = 1;
-			data->inter.gradientspeed = 20;
-		}
-		data->bchange = 1;
-	}
-}
-
 int	handle_keypress(int keysym, t_data *data)
 {
-	if (keysym == XK_Escape)
-	{
-		if (data->exit_page == 0)
-			data->exit_page = 1;
-		else
-		{
-			ft_close(data);
-			exit(SUCCESS);
-		}
-	}
-	if ((keysym == XK_Y || keysym == XK_y) && data->exit_page == 1)
-	{
-			ft_close(data);
-			exit(SUCCESS);
-	}
-	if ((keysym == XK_N || keysym == XK_n) && data->exit_page == 1)
-		data->exit_page = 0;
-	if (keysym == XK_space)
-	{
-		data->landing_page = 0;
-	}
+	ft_key_pages(keysym, data);
 	if (keysym == XK_F1)
 		ft_init_view(data, data->map);
-	if (keysym == XK_Up)
-		data->inter.zoom += 1;
-	if (keysym == XK_Down)
-		if (data->inter.zoom > 1)
-			data->inter.zoom -= 1;
 	if (keysym == XK_m)
 	{
 		if (data->inter.view == ISOMETRIC)

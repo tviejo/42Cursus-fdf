@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/07 19:27:49 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 15:48:02 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,40 +54,52 @@ void	render_background(t_img *img, t_data *data, int color)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			if (img->pixel[i][j] == 1 || data->bchange)
+			if (data->pixel[i][j] == 1 || data->bchange)
 			{
 				img_pix_put(img, j, i, color);
 			}
-			img->pixel[i][j] = 0;
+			data->pixel[i][j] = 0;
 			j++;
 		}
 		++i;
 	}
 }
 
+int	render_fdf(t_data *data)
+{
+	if (data->parsed_data == 1)
+	{
+		if (data->inter.partymode == 1)
+		{
+			data->inter.colorb = ft_ncolor_change(data->inter.colorb,
+					data->inter.gradientspeed, 2);
+			data->phase++;
+		}
+		else
+			data->phase = 0;
+		data->inter.colorl = ft_ncolor_change(data->inter.colorl,
+				data->inter.gradientspeed, 1);
+		mouse_movement(data);
+		render_background(&data->img, data, data->inter.colorb);
+		ft_put_line(data);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img,
+			0, 0);
+		ft_put_hud(data);
+	}
+	return (0);
+}
+
 int	render(t_data *data)
 {
-	if (data->exit_page == 1)
+	if (data->page.exit_page == 1)
 	{
 		return (render_exit(data));
 	}
-	else if (data->landing_page == 1)
+	else if (data->page.landing_page == 1)
 		return (render_landing(data));
-	if (data->inter.partymode == 1)
-	{
-		data->inter.colorb = ft_ncolor_change(data->inter.colorb,
-				data->inter.gradientspeed, 2);
-		data->phase++;
-	}
-	else
-		data->phase = 0;
-	data->inter.colorl = ft_ncolor_change(data->inter.colorl,
-			data->inter.gradientspeed, 1);
-	mouse_movement(data);
-	render_background(&data->img, data, data->inter.colorb);
-	ft_put_line(data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,
-		0);
-	ft_put_hud(data);
+	else if (data->page.parsing_page == 1)
+		return (render_parsing(data));
+	else if (data->parsed_data == 1)
+		return (render_fdf(data));
 	return (0);
 }

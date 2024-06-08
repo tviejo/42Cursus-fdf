@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/07 19:14:42 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 16:02:58 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define BLUE_PIXEL 0xFF
 # define WHITE_PIXEL 0xFFFFFF
 
-# define BUFFER_SIZE 100000
+# define BUFFER_SIZE 1024
 
 # define INVALID_ARGUMENT 1
 # define INVALID_READ 2
@@ -55,7 +55,6 @@ typedef struct s_img
 	int			bpp;
 	int			line_len;
 	int			endian;
-	int			**pixel;
 }				t_img;
 
 typedef struct s_3dcoor
@@ -124,6 +123,13 @@ typedef struct s_inter
 	int			view;
 }				t_inter;
 
+typedef struct s_page
+{
+	int			landing_page;
+	int			exit_page;
+	int			parsing_page;
+}				t_page;
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -131,14 +137,19 @@ typedef struct s_data
 	t_img		img;
 	t_map		map;
 	t_inter		inter;
+	t_page		page;
+	char		*file;
 	int			cur_img;
 	int			bchange;
 	int			phase;
-	int			landing_page;
-	int			exit_page;
 	char		*arg;
+	int			**pixel;
+	int			parsed_data;
 }				t_data;
 
+int				ft_parsing(t_data *data);
+int				render_parsing(t_data *data);
+int				ft_free_img(t_data *data);
 void			mouse_movement(t_data *data);
 void			ft_put_hud(t_data *data);
 int				ft_color_to_rgb(int r, int g, int b);
@@ -158,7 +169,7 @@ void			ft_putchar_fd(char c, int fd);
 int				ft_strlen(char *str);
 void			ft_putstr_fd(char *str, int fd);
 void			img_pix_put(t_img *img, int x, int y, int color);
-int				render_line(t_img *img, t_line line);
+int				render_line(t_data *data, t_img *img, t_line line);
 void			render_background(t_img *img, t_data *data, int color);
 int				handle_keypress(int keysym, t_data *data);
 int				handle_mouse_press(int keysym, int x, int y, t_data *data);
@@ -182,10 +193,13 @@ t_map			create_map(char *argv);
 void			ft_put_line(t_data *data);
 bool			ft_pixel_is_printable(int pixelX, int pixelY);
 int				ft_color_line(t_line line, int pixels);
-void			ft_close(t_data *data);
+int				ft_close(t_data *data);
 int				ft_sinus(int i, int j, t_data *data);
 int				handle_keypress_landing(int keysym, t_data *data);
-int			render_landing(t_data *data);
-int			render_exit(t_data *data);
+int				render_landing(t_data *data);
+int				render_exit(t_data *data);
+void			ft_key_party(int keysym, t_data *data);
+void			ft_key_pages(int keysym, t_data *data);
+int				ft_zoom(t_map *map);
 
 #endif

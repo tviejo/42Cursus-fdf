@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/04 12:41:21 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/08 15:39:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	**ft_read_line(int fd, int *leny)
 	int		**point;
 
 	line = get_next_line(fd);
+	if (line == NULL)
+	{
+		ft_putstr_fd("Invalid parsing\n", 2);
+		exit(0);
+	}
 	*leny = ft_count_words(line, ' ');
 	point = ft_split_map(line, ' ', *leny);
 	free(line);
@@ -48,19 +53,21 @@ int	ft_size_tab(char *argv)
 {
 	int		fd;
 	int		i;
+	int		toggle;
 	char	*line;
 
 	fd = open(argv, O_RDONLY);
-	i = 1;
-	line = get_next_line(fd);
-	while (line != NULL)
+	i = 0;
+	toggle = 0;
+	while (1)
 	{
-		free(line);
 		line = get_next_line(fd);
-		i++;
-	}
-	if (line != NULL)
+		if (line == NULL)
+			return (close(fd), i);
 		free(line);
+		i++;
+		toggle = 1;
+	}
 	close(fd);
 	return (i);
 }
@@ -92,4 +99,13 @@ t_map	create_map(char *argv)
 	map.y = leny;
 	ft_find_zmaxmin(&map, map.x, map.y);
 	return (close(fd), map);
+}
+
+int				ft_parsing(t_data *data)
+{
+	data->map = create_map(data->file);
+	if (data->map.x == 0 || data->map.y == 0)
+		return (ft_putstr_fd("Invalid parsing\n", 2), ft_close(data));
+	data->parsed_data = 1;
+	return (0);
 }
