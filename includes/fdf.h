@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 18:35:14 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:26:46 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@
 # define MLX_ERROR 4
 # define SUCCESS 0
 
-# define ISOMETRIC 1
-# define PERSPECTIVE 2
-/*
-enum e_fdf_state {error = -1, success_windows, succe};
-*/
 typedef struct s_img
 {
 	void		*mlx_img;
@@ -94,6 +89,7 @@ typedef struct s_map
 	int			y;
 	int			zmin;
 	int			zmax;
+	int			error;
 }				t_map;
 
 typedef struct s_inter
@@ -120,7 +116,7 @@ typedef struct s_inter
 	int			gradientspeed;
 	int			partymode;
 	float		gradientsize;
-	int			view;
+	int			map_mode;
 }				t_inter;
 
 typedef struct s_page
@@ -128,7 +124,6 @@ typedef struct s_page
 	int			landing_page;
 	int			exit_page;
 	int			parsing_page;
-	int			menu_page;
 }				t_page;
 
 typedef struct s_data
@@ -145,11 +140,14 @@ typedef struct s_data
 	int			phase;
 	char		*arg;
 	int			**pixel;
+	long		nbpixel;
 	int			parsed_data;
 	char		*input;
+	int			view;
+	int			free;
 }				t_data;
 
-char	*ft_strjoin(char const *s1, char s2);
+char			*ft_strjoin(char const *s1, char s2);
 int				ft_parsing(t_data *data);
 int				render_parsing(t_data *data);
 int				ft_free_img(t_data *data);
@@ -172,7 +170,7 @@ void			ft_putchar_fd(char c, int fd);
 int				ft_strlen(char *str);
 void			ft_putstr_fd(char *str, int fd);
 void			img_pix_put(t_img *img, int x, int y, int color);
-int				render_line(t_data *data, t_img *img, t_line line);
+int				render_line(t_data *data, t_line line);
 void			render_background(t_img *img, t_data *data, int color);
 int				handle_keypress(int keysym, t_data *data);
 int				handle_mouse_press(int keysym, int x, int y, t_data *data);
@@ -191,7 +189,6 @@ int				ft_is_new_line(char *buffer);
 int				ft_count_words(char *str, char c);
 int				**ft_split_map(char *str, char c, int nb_words);
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);
-int				ft_itoa(int *str);
 t_map			create_map(char *argv);
 void			ft_put_line(t_data *data);
 bool			ft_pixel_is_printable(int pixelX, int pixelY);
@@ -204,7 +201,11 @@ int				render_exit(t_data *data);
 void			ft_key_party(int keysym, t_data *data);
 void			ft_key_pages(int keysym, t_data *data);
 int				ft_init_zoom(t_map *map);
-int				render_menu(t_data *data);
-void		render_black(t_img *img);
+void			render_black(t_img *img);
+void			ft_convert_positive(t_map *map, int i, int j);
+int				ft_init_img(t_data *data);
+int				ft_reset_img(t_data *data);
+void			ft_key_view(int keysym, t_data *data);
+char			*ft_itoa(long nb);
 
 #endif

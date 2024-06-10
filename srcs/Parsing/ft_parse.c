@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 15:39:19 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:51:51 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 void	ft_find_zmaxmin(t_map *map, int i, int j)
 {
+	int	jmax;
+
+	jmax = j;
 	map->zmax = 0;
 	map->zmin = 0;
 	j--;
 	i--;
-	while (i > 0)
+	while (i >= 0)
 	{
-		while (j > 0)
+		j = jmax - 1;
+		while (j >= 0)
 		{
 			if (map->map[i][j][0] > map->zmax)
 				map->zmax = map->map[i][j][0];
-			else if (map->map[i][j][0] < map->zmin)
+			if (map->map[i][j][0] < map->zmin)
 				map->zmin = map->map[i][j][0];
 			j--;
 		}
 		i--;
 	}
+	ft_convert_positive(map, map->x, map->y);
 }
 
 int	**ft_read_line(int fd, int *leny)
@@ -90,7 +95,7 @@ t_map	create_map(char *argv)
 	{
 		map.map[i] = (int **)ft_read_line(fd, &leny);
 		if (i > 0 && map.y != leny)
-			return (map.x = 0, map.y = 0, map);
+			return (map.map[i + 1] = NULL, map.error = 1, close(fd), map);
 		map.y = leny;
 		i++;
 	}
@@ -98,14 +103,18 @@ t_map	create_map(char *argv)
 	map.x = i;
 	map.y = leny;
 	ft_find_zmaxmin(&map, map.x, map.y);
-	return (close(fd), map);
+	return (map.error = 0, close(fd), map);
 }
 
-int				ft_parsing(t_data *data)
+int	ft_parsing(t_data *data)
 {
-	data->map = create_map(data->file);
-	if (data->map.x == 0 || data->map.y == 0)
-		return (ft_putstr_fd("Invalid parsing\n", 2), ft_close(data));
+	t_map	map;
+
+	map = create_map(data->file);
+	if (map.error == 1)
+		return (ft_putstr_fd("Invalid parsing\n", 2), ft_free_map(&map),
+			ft_close(data));
+	data->map = map;
 	data->parsed_data = 1;
 	return (0);
 }

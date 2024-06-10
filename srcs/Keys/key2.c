@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 10:10:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 17:28:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:23:40 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@ void	ft_key_party(int keysym, t_data *data)
 			data->inter.gradientspeed = 20;
 		}
 		data->bchange = 1;
+	}
+}
+
+void	ft_key_view(int keysym, t_data *data)
+{
+	if (keysym == XK_Right)
+	{
+		if (data->view == 6)
+			data->view = 1;
+		else
+			data->view++;
+	}
+	if (keysym == XK_Left)
+	{
+		if (data->view == 1)
+			data->view = 6;
+		else
+			data->view--;
 	}
 }
 
@@ -52,17 +70,6 @@ void	ft_key_pages(int keysym, t_data *data)
 	if (keysym == XK_space && data->page.landing_page == 1)
 	{
 		data->page.landing_page = 0;
-        data->page.menu_page = 1;
-	}
-	if ((keysym == XK_y || keysym == XK_Y ) && data->page.menu_page == 1)
-	{
-        data->page.menu_page = 0;
-		data->page.parsing_page = 1;
-	}
-	if ((keysym == XK_n || keysym == XK_N ) && data->page.menu_page == 1)
-	{
-		data->file = data->input;
-        data->page.menu_page = 0;
 		data->page.parsing_page = 1;
 	}
 }

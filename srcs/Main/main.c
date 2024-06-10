@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:16:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 15:56:15 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:05:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static void	ft_fdf_img(t_data data)
 {
+	data.page.landing_page = 1;
 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
+	data.pixel = NULL;
 	ft_init_view(&data, data.map);
+	data.view = 1;
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, 17, StructureNotifyMask, &ft_close, &data);
 	mlx_hook(data.win_ptr, 4, ButtonPressMask, &handle_mouse_press, &data);
@@ -42,6 +45,8 @@ static int	ft_fdf(char *argv)
 	if (data.win_ptr == NULL)
 		return (free(data.win_ptr), ft_putstr_fd("Mlx error\n", 2),
 			WINDOW_ERROR);
+	data.map.map = NULL;
+	data.pixel = NULL;
 	ft_fdf_img(data);
 	return (SUCCESS);
 }

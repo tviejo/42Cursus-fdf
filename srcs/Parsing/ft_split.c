@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:14:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 10:24:14 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:24:48 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	**ft_split_map(char *str, char c, int nb_words)
 			}
 			i++;
 		}
+		output[i] = NULL;
 	}
 	return (output);
 }

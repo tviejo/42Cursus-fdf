@@ -6,13 +6,13 @@ SRC_DIR		=	srcs/
 OBJ_DIR         =       objs/
  
 SRCS		=	Parsing/ft_atoi.c Parsing/ft_parse.c Parsing/ft_split.c Parsing/parse_color.c \
-				Parsing/get_next_line.c Parsing/get_next_line_utils.c\
+				Parsing/get_next_line.c Parsing/get_next_line_utils.c Parsing/ft_positive.c\
 				Color/color.c Color/color_line.c Color/colorconvert.c \
 				Coordinate/coorconvert.c Coordinate/rotate.c Coordinate/mouse_mov.c Coordinate/sinus.c\
 				Main/main.c Main/init_view.c Main/mouse.c\
 				Keys/key.c Keys/key2.c \
 				Render/render.c Render/render_line.c \
-				Utils/ft_utils.c \
+				Utils/ft_utils.c Utils/ft_itoa.c\
 				HUD/hud.c \
 				Landing_page/landing_page.c Landing_page/menu_page.c\
 				Close/close.c
@@ -23,7 +23,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC		=	cc
 
-CFLAGS		=	 -g3 -Wall -Wextra -Werror -g3
+CFLAGS		=	 -Wall -Wextra -Werror
 
 RM		=	rm -f
 
@@ -32,7 +32,7 @@ INCLUDES	= 	-I/includes/fdf.h -I/opt/X11/include -Imlx
 MLX_FLAGS	=	-lm -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11
 
 ifeq ($(debug), true)
-	CFLAGS += -fsanitize=address,undefined
+	CFLAGS += -g3 -fsanitize=address,undefined
 endif
 
 ifndef ECHO

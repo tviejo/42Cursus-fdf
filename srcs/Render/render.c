@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 17:04:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:28:20 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	render_background(t_img *img, t_data *data, int color)
 			data->pixel[i][j] = 0;
 			j++;
 		}
+		data->nbpixel = 0;
 		++i;
 	}
 }
@@ -97,8 +98,6 @@ int	render(t_data *data)
 	}
 	else if (data->page.landing_page == 1)
 		return (render_landing(data));
-		else if (data->page.menu_page == 1)
-		return (render_menu(data));
 	else if (data->page.parsing_page == 1)
 		return (render_parsing(data));
 	else if (data->parsed_data == 1)

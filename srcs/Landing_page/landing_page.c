@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:46:36 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 17:09:53 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 11:30:33 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	render_parsing(t_data *data)
 	data->inter.zoom = ft_init_zoom(&data->map);
 	data->inter.lenx = data->map.x;
 	data->inter.leny = data->map.y;
-	data->inter.lenz = data->map.zmax - data->map.zmin;
+	data->inter.lenz = data->map.zmax;
+	data->inter.gradientsize = 768 / data->map.zmax;
 	return (0);
 }
 

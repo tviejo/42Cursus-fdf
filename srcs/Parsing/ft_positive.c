@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   menu_page.c                                        :+:      :+:    :+:   */
+/*   ft_positive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 16:26:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 16:26:12 by tviejo           ###   ########.fr       */
+/*   Created: 2024/06/10 16:25:55 by tviejo            #+#    #+#             */
+/*   Updated: 2024/06/10 16:25:57 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static char	*ft_res(char const *s1, char s2, char *ptr)
+void	ft_convert_positive(t_map *map, int i, int j)
 {
-	int	size_s1;
+	int	jmax;
 
-	if (s1 != NULL)
+	jmax = j;
+	if (map->zmin < 0)
 	{
-		size_s1 = 0;
-		while (s1[size_s1] != '\0')
-			size_s1++;
+		j--;
+		i--;
+		while (i >= 0)
+		{
+			j = jmax - 1;
+			while (j >= 0)
+			{
+				map->map[i][j][0] = (map->map[i][j][0] - map->zmin);
+				j--;
+			}
+			i--;
+		}
+		map->zmax = map->zmax + abs(map->zmin);
+		map->zmin = 0;
 	}
-	else
-		size_s1 = 0;
-	ptr = malloc((size_s1 + 1 + 1) * sizeof(char));
-	if (ptr == NULL)
-		return (NULL);
-	ptr[size_s1] = s2;
-	ptr[size_s1 + 1] = '\0';
-	return (ptr);
-}
-
-char	*ft_strjoin(char const *s1, char s2)
-{
-	char	*ptr;
-
-	ptr = NULL;
-	ptr = ft_res(s1, s2, ptr);
-	return (ptr);
 }

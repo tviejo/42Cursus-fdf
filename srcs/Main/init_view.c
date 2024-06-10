@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 17:00:22 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:30:02 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_init_zoom(t_map *map)
 		return (WINDOW_HEIGHT / map->y * 0.9);
 }
 
-static int	ft_init_img(t_data *data)
+int	ft_reset_img(t_data *data)
 {
 	int	i;
 	int	j;
@@ -29,16 +29,6 @@ static int	ft_init_img(t_data *data)
 	size = WINDOW_WIDTH;
 	if (WINDOW_HEIGHT > size)
 		size = WINDOW_HEIGHT;
-	data->pixel = (int **)malloc((size + 1) * sizeof(int *));
-	if (data->pixel == NULL)
-		return (ft_close(data));
-	i = -1;
-	while (++i < size)
-	{
-		data->pixel[i] = (int *)malloc((size + 1) * sizeof(int));
-		if (data->pixel[i] == NULL)
-			return (ft_close(data));
-	}
 	i = -1;
 	while (++i < size)
 	{
@@ -46,6 +36,31 @@ static int	ft_init_img(t_data *data)
 		while (++j < size)
 			data->pixel[i][j] = 1;
 	}
+	return (0);
+}
+
+int	ft_init_img(t_data *data)
+{
+	int	i;
+	int	size;
+
+	size = WINDOW_WIDTH;
+	if (WINDOW_HEIGHT > size)
+		size = WINDOW_HEIGHT;
+	if (data->pixel == NULL)
+	{
+		data->pixel = (int **)malloc((size + 1) * sizeof(int *));
+		if (data->pixel == NULL)
+			return (ft_close(data));
+		i = -1;
+		while (++i < size)
+		{
+			data->pixel[i] = (int *)malloc((size + 1) * sizeof(int));
+			if (data->pixel[i] == NULL)
+				return (ft_close(data));
+		}
+	}
+	ft_reset_img(data);
 	return (0);
 }
 
@@ -57,9 +72,10 @@ void	ft_init_button(t_data *data, t_map map)
 		data->inter.lenx = map.x;
 		data->inter.leny = map.y;
 		data->inter.lenz = map.zmax - map.zmin;
+		data->inter.gradientsize = 768 / map.zmax;
 	}
 	data->inter.transx = WINDOW_WIDTH / 2;
-	data->inter.transy = WINDOW_HEIGHT / 4;
+	data->inter.transy = WINDOW_HEIGHT / 2;
 	data->inter.transz = 0;
 	data->inter.rotax = 0;
 	data->inter.rotay = 0;
@@ -72,21 +88,20 @@ void	ft_init_button(t_data *data, t_map map)
 	data->inter.deformy = 1;
 	data->inter.deformz = 0.1;
 	data->inter.colorb = 0;
-	data->inter.colorl = RED_PIXEL;
+	data->inter.colorl = BLACK_PIXEL;
 	data->inter.partymode = 0;
 	data->inter.gradientspeed = 0;
-	data->inter.gradientsize = 10;
 }
 
 void	ft_init_view(t_data *data, t_map map)
 {
+	data->free = 0;
 	data->bchange = 0;
 	data->phase = 0;
-	data->page.landing_page = 1;
 	data->page.exit_page = 0;
 	data->page.parsing_page = 0;
-	data->inter.view = ISOMETRIC;
-	data->pixel = NULL;
+	data->inter.map_mode = 0;
+	data->nbpixel = 0;
 	ft_init_button(data, map);
 	ft_init_img(data);
 }

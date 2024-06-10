@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 15:36:34 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:50:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,24 @@ int	ft_free_map(t_map *map)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < map->x)
+	if (map != NULL)
 	{
-		j = 0;
-		while (j < map->y)
+		i = 0;
+		while (map->map[i] != NULL)
 		{
-			free(map->map[i][j]);
-			j++;
+			j = 0;
+			while (map->map[i][j] != NULL)
+			{
+				free(map->map[i][j]);
+				j++;
+			}
+			free(map->map[i]);
+			i++;
 		}
-		free(map->map[i]);
-		i++;
+		free(map->map);
 	}
-	free(map->map);
 	return (0);
 }
-
 
 int	ft_free_img(t_data *data)
 {
@@ -52,6 +54,7 @@ int	ft_free_img(t_data *data)
 		}
 		free(data->pixel);
 	}
+	data->pixel = NULL;
 	return (0);
 }
 

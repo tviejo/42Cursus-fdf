@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 18:39:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:22:51 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,14 @@ void	ft_key_color(int keysym, t_data *data)
 
 int	handle_keypress(int keysym, t_data *data)
 {
-	//if (data->page.menu_page == 1)
-	//	data->input = ft_strjoin(data->input, (unsigned char)keysym);
 	ft_key_pages(keysym, data);
 	if (keysym == XK_F1)
 		ft_init_view(data, data->map);
-	if (keysym == XK_m)
-	{
-		if (data->inter.view == ISOMETRIC)
-			data->inter.view = PERSPECTIVE;
-		else
-			data->inter.view = ISOMETRIC;
-	}
+	if (keysym == XK_8)
+		data->inter.map_mode = 1;
+	if (keysym == XK_7)
+		data->inter.map_mode = 0;
+	ft_key_view(keysym, data);
 	ft_key_movement(keysym, data);
 	ft_key_deform(keysym, data);
 	ft_key_color(keysym, data);
