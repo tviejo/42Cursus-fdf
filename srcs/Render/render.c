@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 18:28:20 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 20:02:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	render_fdf(t_data *data)
 		ft_put_line(data);
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img,
 			0, 0);
+		data->action = 0;
 		ft_put_hud(data);
 	}
 	return (0);
@@ -100,7 +101,9 @@ int	render(t_data *data)
 		return (render_landing(data));
 	else if (data->page.parsing_page == 1)
 		return (render_parsing(data));
-	else if (data->parsed_data == 1)
+	if (data->parsed_data == 1)
+		ft_put_hud(data);
+	if (data->parsed_data == 1 && data->action == 1)
 		return (render_fdf(data));
 	return (0);
 }

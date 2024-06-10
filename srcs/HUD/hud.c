@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:38:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 18:37:44 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:59:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ void	ft_put_hud(t_data *data)
 	mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 100,
 		WINDOW_HEIGHT / 2, WHITE_PIXEL, nbpixel);
 	free(nbpixel);
+	if (data->action == 1)
+		mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 100,
+		WINDOW_HEIGHT - 100, GREEN_PIXEL, "rendering");
 	ft_color_hud(data);
 	ft_view_hud(data);
 	ft_inter_hud(data);

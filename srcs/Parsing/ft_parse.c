@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 17:51:51 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:40:29 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int	ft_parsing(t_data *data)
 	if (map.error == 1)
 		return (ft_putstr_fd("Invalid parsing\n", 2), ft_free_map(&map),
 			ft_close(data));
+	if (map.zmax > 500)
+		ft_convert_to_big(&map, map.x, map.y);
 	data->map = map;
 	data->parsed_data = 1;
 	return (0);

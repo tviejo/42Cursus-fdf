@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:46:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/08 09:46:18 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:55:10 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	handle_mouse_press(int keysym, int x, int y, t_data *data)
 {
+	data->action = 1;
 	if (keysym == 4)
 		data->inter.zoom += 1;
 	if (keysym == 5)
@@ -36,6 +37,7 @@ int	handle_mouse_press(int keysym, int x, int y, t_data *data)
 
 int	handle_mouse_release(int keysym, int x, int y, t_data *data)
 {
+	data->action = 1;
 	x++;
 	y++;
 	if (keysym == 1)

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 18:26:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:55:44 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_data
 	char		*input;
 	int			view;
 	int			free;
+	int			action;
 }				t_data;
 
 char			*ft_strjoin(char const *s1, char s2);
@@ -207,5 +208,6 @@ int				ft_init_img(t_data *data);
 int				ft_reset_img(t_data *data);
 void			ft_key_view(int keysym, t_data *data);
 char			*ft_itoa(long nb);
+void			ft_convert_to_big(t_map *map, int i, int j);
 
 #endif
