@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:47:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 19:54:51 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:30:07 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_key_color(int keysym, t_data *data)
 int	handle_keypress(int keysym, t_data *data)
 {
 	data->action = 1;
+	ft_put_hud(data);
 	ft_key_pages(keysym, data);
 	if (keysym == XK_F1)
 		ft_init_view(data, data->map);

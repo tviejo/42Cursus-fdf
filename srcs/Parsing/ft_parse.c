@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 19:40:29 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:25:57 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,7 @@ int	ft_parsing(t_data *data)
 		ft_convert_to_big(&map, map.x, map.y);
 	data->map = map;
 	data->parsed_data = 1;
+	data->action = 1;
+	ft_put_hud(data);
 	return (0);
 }
