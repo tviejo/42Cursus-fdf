@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:38:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/11 10:34:51 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 13:19:09 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ static void	ft_color_hud(t_data *data)
 	hud[7] = "         OTHER        ";
 	hud[8] = "----------------------";
 	hud[9] = "| I   < PARTY MODE   |";
-	hud[10] = "----------------------";
+	hud[10] = "| F2  < REMOVE HUD   |";
+	hud[11] = "----------------------";
 	i = 0;
-	while (i < 11)
+	while (i < 12)
 	{
 		mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 300 + (i + 14) * 20,
 			WHITE_PIXEL, hud[i]);
@@ -118,19 +119,20 @@ void	ft_put_hud(t_data *data)
 	char	*hud[2];
 	char	*nbpixel;
 
-	nbpixel = ft_itoa(data->nbpixel);
-	hud[0] = "nb pixel print:";
-	mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 200,
-		WINDOW_HEIGHT / 2, WHITE_PIXEL, hud[0]);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 100,
-		WINDOW_HEIGHT / 2, WHITE_PIXEL, nbpixel);
-	free(nbpixel);
-	if (data->action == 1)
+	if (data->hud == 1)
+	{
+		nbpixel = ft_itoa(data->nbpixel);
+		hud[0] = "nb pixel print:";
+		mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 200,
+			WINDOW_HEIGHT / 2, WHITE_PIXEL, hud[0]);
 		mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 100,
-			50, GREEN_PIXEL, "rendering");
-	if (nbpixel == 0 || data->parsed_data == 0)
-		render_parsing(data);
-	ft_color_hud(data);
-	ft_view_hud(data);
-	ft_inter_hud(data);
+			WINDOW_HEIGHT / 2, WHITE_PIXEL, nbpixel);
+		free(nbpixel);
+		if (data->action == 1 || data->nbpixel < 0)
+			mlx_string_put(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH - 100, 50,
+				GREEN_PIXEL, "rendering");
+		ft_color_hud(data);
+		ft_view_hud(data);
+		ft_inter_hud(data);
+	}
 }

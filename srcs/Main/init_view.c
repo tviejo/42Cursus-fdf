@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:42:03 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/11 10:11:23 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 14:33:04 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ft_init_button(t_data *data, t_map map)
 
 void	ft_init_view(t_data *data, t_map map)
 {
+	data->hud = 1;
 	data->action = 1;
 	data->free = 0;
 	data->bchange = 0;
@@ -103,6 +104,8 @@ void	ft_init_view(t_data *data, t_map map)
 	data->page.parsing_page = 0;
 	data->inter.map_mode = 0;
 	data->nbpixel = 0;
+	//data->view = 1;
 	ft_init_button(data, map);
 	ft_init_img(data);
+	ft_put_hud(data);
 }

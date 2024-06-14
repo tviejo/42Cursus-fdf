@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:48:51 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/11 10:25:57 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 13:45:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	**ft_read_line(int fd, int *leny)
 	return (point);
 }
 
-int	ft_size_tab(char *argv)
+int	ft_size_tab(char *argv, t_data *data)
 {
 	int		fd;
 	int		i;
@@ -62,6 +62,8 @@ int	ft_size_tab(char *argv)
 	char	*line;
 
 	fd = open(argv, O_RDONLY);
+	if (fd == -1 || read(fd, 0, 0) < 0)
+		return (ft_close(data), -1);
 	i = 0;
 	toggle = 0;
 	while (1)
@@ -77,7 +79,7 @@ int	ft_size_tab(char *argv)
 	return (i);
 }
 
-t_map	create_map(char *argv)
+t_map	create_map(char *argv, t_data *data)
 {
 	int		fd;
 	int		nb_line;
@@ -85,13 +87,13 @@ t_map	create_map(char *argv)
 	int		i;
 	int		leny;
 
-	nb_line = ft_size_tab(argv);
+	nb_line = ft_size_tab(argv, data);
 	map.map = (int ***)malloc((nb_line + 1) * sizeof(int **));
 	if (map.map == NULL)
 		return (map);
 	fd = open(argv, O_RDONLY);
 	i = 0;
-	while (i < nb_line - 1)
+	while (i < nb_line)
 	{
 		map.map[i] = (int **)ft_read_line(fd, &leny);
 		if (i > 0 && map.y != leny)
@@ -110,12 +112,14 @@ int	ft_parsing(t_data *data)
 {
 	t_map	map;
 
-	map = create_map(data->file);
+	map = create_map(data->file, data);
 	if (map.error == 1)
 		return (ft_putstr_fd("Invalid parsing\n", 2), ft_free_map(&map),
 			ft_close(data));
 	if (map.zmax > 500)
 		ft_convert_to_big(&map, map.x, map.y);
+	if (map.zmax == 0)
+		ft_convert_offset(&map, map.x, map.y);
 	data->map = map;
 	data->parsed_data = 1;
 	data->action = 1;

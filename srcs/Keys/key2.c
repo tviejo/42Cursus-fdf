@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 10:10:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 16:23:40 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 12:08:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ void	ft_key_view(int keysym, t_data *data)
 			data->view = 6;
 		else
 			data->view--;
+	}
+}
+
+void	ft_key_hud(int keysym, t_data *data)
+{
+	if (keysym == XK_F2)
+	{
+		if (data->hud == 0)
+			data->hud = 1;
+		else
+			data->hud = 0;
 	}
 }
 

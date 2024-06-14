@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:09:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/11 10:23:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:39:08 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void	render_background(t_img *img, t_data *data, int color)
 
 int	render_fdf(t_data *data)
 {
-	data->action = 1;
-	ft_put_hud(data);
 	if (data->parsed_data == 1)
 	{
 		if (data->inter.partymode == 1)
@@ -105,7 +103,5 @@ int	render(t_data *data)
 		return (render_parsing(data));
 	else if (data->parsed_data == 1)
 		return (render_fdf(data));
-	else
-		ft_put_hud(data);
 	return (0);
 }

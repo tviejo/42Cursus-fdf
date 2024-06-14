@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 19:55:44 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 13:37:16 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,11 @@ typedef struct s_data
 	int			view;
 	int			free;
 	int			action;
+	int			hud;
 }				t_data;
 
+void			ft_convert_offset(t_map *map, int i, int j);
+void			ft_key_hud(int keysym, t_data *data);
 char			*ft_strjoin(char const *s1, char s2);
 int				ft_parsing(t_data *data);
 int				render_parsing(t_data *data);
@@ -190,12 +193,12 @@ int				ft_is_new_line(char *buffer);
 int				ft_count_words(char *str, char c);
 int				**ft_split_map(char *str, char c, int nb_words);
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);
-t_map			create_map(char *argv);
+t_map			create_map(char *argv, t_data *data);
 void			ft_put_line(t_data *data);
 bool			ft_pixel_is_printable(int pixelX, int pixelY);
 int				ft_color_line(t_line line, int pixels);
 int				ft_close(t_data *data);
-int				ft_sinus(int i, int j, t_data *data);
+float			ft_sinus(int i, int j, t_data *data);
 int				handle_keypress_landing(int keysym, t_data *data);
 int				render_landing(t_data *data);
 int				render_exit(t_data *data);

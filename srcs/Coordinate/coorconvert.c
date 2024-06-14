@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:02:10 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 19:32:06 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:08:41 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_3dcoor	ft_zoom(t_3dcoor point3d, t_data *data)
 	point3d.z -= (data->map.zmax / 2);
 	point3d.x *= data->inter.zoom * data->inter.deformx;
 	point3d.y *= data->inter.zoom * data->inter.deformy;
-	point3d.z *= data->inter.zoom * data->inter.deformz * 5;
+	point3d.z *= data->inter.zoom * data->inter.deformz;
 	point3d.x += (data->map.x / 2);
 	point3d.y += (data->map.y / 2);
 	point3d.z += (data->map.zmax / 2);

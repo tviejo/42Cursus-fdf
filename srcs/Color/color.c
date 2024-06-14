@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:21:00 by tviejo            #+#    #+#             */
-/*   Updated: 2024/06/10 19:44:49 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:01:12 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	ft_nb_color_a_to_b(int colorbegin, int colorend)
 	int	i;
 
 	i = 0;
-	while (colorbegin != colorend && i < 1500)
+	while (colorbegin != colorend && i < 10000)
 	{
 		colorbegin = ft_color_change(colorbegin);
 		i++;
 	}
-	if (i == 1500)
+	if (i == 10000)
 		return (0);
 	return (i);
 }
@@ -61,7 +61,7 @@ int	ft_ncolor_change(int color, int n, int mode)
 	return (color);
 }
 
-int	ft_color_change(int color)
+int	ft_color_rchange(int color)
 {
 	u_int8_t	r;
 	u_int8_t	g;
@@ -89,7 +89,7 @@ int	ft_color_change(int color)
 	return (ft_color_to_rgb(r, g, b));
 }
 
-int	ft_color_rchange(int color)
+int	ft_color_change(int color)
 {
 	u_int8_t	r;
 	u_int8_t	g;
